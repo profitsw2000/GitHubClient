@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_list_item">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/person_photo_image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/icon_user"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:strokeColor="@color/design_default_color_secondary"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:id="@+id/person_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/person_photo_image_view"
+            android:layout_alignParentTop="true"
+            android:textSize="@dimen/user_list_item_name_text_size"
+            android:textColor="@color/black"
+            tools:text="Name"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/about_person_text_view"
+            android:layout_toRightOf="@+id/person_photo_image_view"
+            android:layout_marginTop="@dimen/margin_top_item_text_views"
+            android:layout_below="@+id/person_name_text_view"
+            tools:text="Junior Android and iOS developer for unknown corporation."
+            />
+
+        <TextView
+            android:id="@+id/person_city_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/about_person_text_view"
+            android:layout_marginTop="@dimen/margin_top_item_text_views"
+            android:layout_toRightOf="@+id/person_photo_image_view"
+            android:text="City: " />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
