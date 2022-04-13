@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
 
+private const val BUNDLE_EXTRA = "user profile"
+
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    //private var adapter: UserListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,17 +40,22 @@ class MainFragment : Fragment() {
             UserProfile(0, "ZoccoFear", "Junior Developer", "Bombei"))
         val adapter = UserListAdapter(object : OnItemClickListener {
             override fun onItemClick(userProfile: UserProfile) {
-                Toast.makeText(requireContext(),userProfile.userName + " was clicked", Toast.LENGTH_SHORT).show()
+                val bundle = Bundle().apply {
+                    putParcelable(BUNDLE_EXTRA, userProfile)
+                }
+                openFragment(UserInfoFragment.newInstance(bundle))
             }
         })
         adapter.setData(userList)
         binding.userListRecyclerview.adapter = adapter
-        //adapter?.setData(userList)
     }
 
     private fun openFragment(fragment: Fragment) {
-        activity?.supportFragmentManager?.apply {
-            beginTransaction()
+
+        val manager = activity?.supportFragmentManager
+
+        manager?.let {
+            manager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack("")
                 .commitAllowingStateLoss()
