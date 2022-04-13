@@ -36,14 +36,13 @@
             />
 
         <TextView
+            android:id="@+id/about_person_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/about_person_text_view"
-            android:layout_toRightOf="@+id/person_photo_image_view"
-            android:layout_marginTop="@dimen/margin_top_item_text_views"
             android:layout_below="@+id/person_name_text_view"
-            tools:text="Junior Android and iOS developer for unknown corporation."
-            />
+            android:layout_marginTop="@dimen/margin_top_item_text_views"
+            android:layout_toRightOf="@+id/person_photo_image_view"
+            tools:text="Junior Android and iOS developer for unknown corporation." />
 
         <TextView
             android:id="@+id/person_city_text_view"
