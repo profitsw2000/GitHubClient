@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.profitsw2000.githubclient.databinding.UserListItemViewBinding
 
-class UserListAdapter: RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
+class UserListAdapter(val onItemClickListener: OnItemClickListener): RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
     private var data: List<UserProfile> = arrayListOf()
     private lateinit var binding: UserListItemViewBinding
@@ -39,6 +39,9 @@ class UserListAdapter: RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
                 personNameTextView.text = userProfile.userName
                 aboutPersonTextView.text = userProfile.userInfo
                 personCityTextView.text = userProfile.userCity
+                root.setOnClickListener {
+                    onItemClickListener.onItemClick(userProfile)
+                }
             }
         }
     }

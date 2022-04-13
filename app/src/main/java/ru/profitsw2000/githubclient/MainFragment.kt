@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
@@ -36,10 +37,23 @@ class MainFragment : Fragment() {
             UserProfile(0, "AscorImpact", "Senior Developer", "Deli"),
             UserProfile(0, "FanReid", "Middle Developer", "Seoul"),
             UserProfile(0, "ZoccoFear", "Junior Developer", "Bombei"))
-        val adapter = UserListAdapter()
+        val adapter = UserListAdapter(object : OnItemClickListener {
+            override fun onItemClick(userProfile: UserProfile) {
+                Toast.makeText(requireContext(),userProfile.userName + " was clicked", Toast.LENGTH_SHORT).show()
+            }
+        })
         adapter.setData(userList)
         binding.userListRecyclerview.adapter = adapter
         //adapter?.setData(userList)
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        activity?.supportFragmentManager?.apply {
+            beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack("")
+                .commitAllowingStateLoss()
+        }
     }
 
     companion object {

@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.apply {
             beginTransaction()
                 .replace(R.id.fragment_container, fragment)
-                .addToBackStack("")
                 .commitAllowingStateLoss()
         }
     }

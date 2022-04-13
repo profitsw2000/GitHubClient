@@ -26,7 +26,7 @@
             android:layout_marginRight="16dp"
             android:src="@drawable/icon_user"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-            app:strokeColor="@color/design_default_color_secondary"
+            app:strokeColor="@color/grey_600"
             app:strokeWidth="1dp" />
 
         <TextView
@@ -45,6 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/person_name_text_view"
+            android:textColor="@color/black"
+            android:alpha="0.8"
             android:layout_marginTop="@dimen/margin_top_item_text_views"
             android:layout_toRightOf="@+id/person_photo_image_view"
             tools:text="Junior Android and iOS developer for unknown corporation." />
@@ -56,6 +58,8 @@
             android:layout_below="@+id/about_person_text_view"
             android:layout_marginTop="@dimen/margin_top_item_text_views"
             android:layout_toRightOf="@+id/person_photo_image_view"
+            android:textColor="@color/black"
+            android:alpha="0.6"
             android:text="City: " />
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>
