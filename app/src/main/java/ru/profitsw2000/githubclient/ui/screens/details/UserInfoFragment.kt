@@ -1,4 +1,4 @@
-package ru.profitsw2000.githubclient.ui.screens
+package ru.profitsw2000.githubclient.ui.screens.details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
