@@ -9,5 +9,6 @@ data class UserProfile(
     val userName: String,
     val userInfo: String,
     val userCity: String,
+    val avatarUrl: String,
     val userRepositories: MutableList<String>
 ) : Parcelable
