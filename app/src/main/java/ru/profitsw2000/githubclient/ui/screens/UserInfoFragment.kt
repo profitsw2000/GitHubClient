@@ -1,4 +1,4 @@
-package ru.profitsw2000.githubclient
+package ru.profitsw2000.githubclient.ui.screens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
 import ru.profitsw2000.githubclient.databinding.FragmentUserInfoBinding
+import ru.profitsw2000.githubclient.domain.entities.UserProfile
 
 private const val BUNDLE_EXTRA = "user profile"
 

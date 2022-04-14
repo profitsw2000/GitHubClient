@@ -1,12 +1,15 @@
-package ru.profitsw2000.githubclient
+package ru.profitsw2000.githubclient.ui.screens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import ru.profitsw2000.githubclient.utils.OnItemClickListener
+import ru.profitsw2000.githubclient.R
+import ru.profitsw2000.githubclient.domain.entities.UserProfile
 import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
+import ru.profitsw2000.githubclient.ui.adapters.UserListAdapter
 
 private const val BUNDLE_EXTRA = "user profile"
 
@@ -29,7 +32,8 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val userList = listOf(UserProfile(0, "Piccolo", "Middle Developer", "San-Francisco"),
+        val userList = listOf(
+            UserProfile(0, "Piccolo", "Middle Developer", "San-Francisco"),
             UserProfile(0, "MorCam", "Senior Developer", "Chickago"),
             UserProfile(0, "AscorImpact", "Senior Developer", "Deli"),
             UserProfile(0, "FanReid", "Middle Developer", "Seoul"),
@@ -37,7 +41,8 @@ class MainFragment : Fragment() {
             UserProfile(0, "MorCam", "Senior Developer", "Chickago"),
             UserProfile(0, "AscorImpact", "Senior Developer", "Deli"),
             UserProfile(0, "FanReid", "Middle Developer", "Seoul"),
-            UserProfile(0, "ZoccoFear", "Junior Developer", "Bombei"))
+            UserProfile(0, "ZoccoFear", "Junior Developer", "Bombei")
+        )
         val adapter = UserListAdapter(object : OnItemClickListener {
             override fun onItemClick(userProfile: UserProfile) {
                 val bundle = Bundle().apply {
