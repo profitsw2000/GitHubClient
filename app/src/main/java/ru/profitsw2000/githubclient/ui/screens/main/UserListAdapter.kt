@@ -1,4 +1,4 @@
-package ru.profitsw2000.githubclient.ui.adapters
+package ru.profitsw2000.githubclient.ui.screens.main
 
 import android.view.LayoutInflater
 import android.view.View

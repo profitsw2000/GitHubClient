@@ -14,7 +14,6 @@ import ru.profitsw2000.githubclient.app
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
 import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
 import ru.profitsw2000.githubclient.ui.ViewModel
-import ru.profitsw2000.githubclient.ui.adapters.UserListAdapter
 import ru.profitsw2000.githubclient.ui.screens.details.UserInfoFragment
 
 private const val BUNDLE_EXTRA = "user profile"
@@ -79,6 +78,7 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
     }
 
     override fun onDestroy() {

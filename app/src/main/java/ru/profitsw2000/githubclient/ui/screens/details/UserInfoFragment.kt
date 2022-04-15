@@ -14,9 +14,11 @@ class UserInfoFragment : Fragment() {
 
     private var _binding: FragmentUserInfoBinding? = null
     private val binding get() = _binding!!
+    private var adapter: UserRepositoriesAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        adapter = UserRepositoriesAdapter()
     }
 
     override fun onCreateView(
@@ -30,11 +32,14 @@ class UserInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val userProfile = arguments?.getParcelable<UserProfile>(BUNDLE_EXTRA)
+
         with(binding) {
             personNameTextView.text = userProfile?.userName
             aboutPersonTextView.text = userProfile?.userInfo
             personCityTextView.text = userProfile?.userCity
+            repositoriesListRecyclerview.adapter = adapter
         }
+        adapter?.setData(userProfile?.userRepositories!!)
     }
 
     override fun onDestroyView() {
