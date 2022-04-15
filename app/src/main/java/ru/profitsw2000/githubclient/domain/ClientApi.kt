@@ -5,7 +5,7 @@ import ru.profitsw2000.githubclient.domain.entities.UserProfile
 
 interface ClientApi {
     @WorkerThread
-    fun getUserList(): List<UserProfile>
+    fun getUserList(): List<UserProfile>?
 
     @WorkerThread
     fun createNewUser(name: String, info: String, city: String, avatarUrl: String): Boolean

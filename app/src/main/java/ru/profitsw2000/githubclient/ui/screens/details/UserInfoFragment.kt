@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
 import ru.profitsw2000.githubclient.databinding.FragmentUserInfoBinding
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
 
@@ -36,6 +35,11 @@ class UserInfoFragment : Fragment() {
             aboutPersonTextView.text = userProfile?.userInfo
             personCityTextView.text = userProfile?.userCity
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

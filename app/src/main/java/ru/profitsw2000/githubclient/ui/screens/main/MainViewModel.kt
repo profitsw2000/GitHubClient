@@ -21,7 +21,7 @@ class MainViewModel (private val clientApiUseCase: ClientApiUseCase) : ViewModel
             } else {
                 errorCode.post(ERROR_EMPTY_USERS_LIST)
             }
+            showProgress.post(false)
         }
-        showProgress.post(false)
     }
 }

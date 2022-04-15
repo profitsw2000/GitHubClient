@@ -10,7 +10,7 @@ class ClientApiUseCaseImpl(
     private val api: ClientApi,
     private val uiHandler: Handler
     ) : ClientApiUseCase {
-    override fun getUserList(@MainThread callback: (List<UserProfile>) -> Unit) {
+    override fun getUserList(@MainThread callback: (List<UserProfile>?) -> Unit) {
         Thread {
             val result = api.getUserList()
             uiHandler.post {

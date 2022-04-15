@@ -7,9 +7,10 @@ import ru.profitsw2000.githubclient.domain.entities.UserProfile
 class TestClientApiImpl : ClientApi {
     private val localRepo = LocalRepoImpl()
 
-    override fun getUserList(): List<UserProfile> {
-        Thread.sleep(2_000)
-        return localRepo.getAllUsers()
+    override fun getUserList(): List<UserProfile>? {
+        val userList = localRepo.getAllUsers()
+        Thread.sleep(5_000)
+        return userList
     }
 
     override fun createNewUser(
