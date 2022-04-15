@@ -9,7 +9,7 @@ class TestClientApiImpl : ClientApi {
 
     override fun getUserList(): List<UserProfile>? {
         val userList = localRepo.getAllUsers()
-        Thread.sleep(5_000)
+        Thread.sleep(2_000)
         return userList
     }
 

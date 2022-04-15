@@ -2,4 +2,17 @@
 <resources>
     <dimen name="user_list_item_name_text_size">20sp</dimen>
     <dimen name="margin_top_item_text_views">8dp</dimen>
+    <dimen name="fragments_padding">10dp</dimen>
+    <dimen name="corner_radius_size_fragment_card_view">5dp</dimen>
+    <dimen name="small_stroke_width">1dp</dimen>
+    <dimen name="user_profile_linear_layout_margin">5dp</dimen>
+    <dimen name="info_fragment_person_photo_size">150dp</dimen>
+    <dimen name="person_photo_margin_right">16dp</dimen>
+    <dimen name="user_repository_list_card_view_margin_top">10dp</dimen>
+    <dimen name="user_list_item_card_view_margin">5dp</dimen>
+    <dimen name="user_list_item_rl_padding">16dp</dimen>
+    <dimen name="user_list_item_person_photo_size">100dp</dimen>
+    <dimen name="person_photo_image_view_margin">16dp</dimen>
+    <dimen name="user_repo_list_item_image_view_margin">5dp</dimen>
+    <dimen name="user_repo_list_item_repo_name_text_size">25sp</dimen>
 </resources>

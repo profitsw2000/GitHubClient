@@ -5,25 +5,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:strokeColor="@color/grey_600"
-    android:layout_margin="5dp"
-    app:cardCornerRadius="5dp"
-    app:strokeWidth="1dp"
-    android:elevation="2dp"
+    android:layout_margin="@dimen/user_list_item_card_view_margin"
+    app:cardCornerRadius="@dimen/corner_radius_size_fragment_card_view"
+    app:strokeWidth="@dimen/small_stroke_width"
     android:id="@+id/user_list_item">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="@dimen/user_list_item_rl_padding"
         >
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/person_photo_image_view"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/user_list_item_person_photo_size"
+            android:layout_height="@dimen/user_list_item_person_photo_size"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="16dp"
+            android:layout_marginRight="@dimen/person_photo_image_view_margin"
             android:src="@drawable/icon_user"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
             app:strokeColor="@color/grey_600"
@@ -60,6 +59,7 @@
             android:layout_toRightOf="@+id/person_photo_image_view"
             android:textColor="@color/black"
             android:alpha="0.6"
-            android:text="City: " />
+            tools:text="City: " />
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>
+
