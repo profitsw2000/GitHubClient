@@ -6,7 +6,9 @@ import io.reactivex.rxjava3.core.Single
 import ru.profitsw2000.githubclient.domain.ClientApi
 import ru.profitsw2000.githubclient.domain.ClientApiUseCase
 import ru.profitsw2000.githubclient.domain.entities.User
+import ru.profitsw2000.githubclient.domain.entities.UserDetails
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
+import ru.profitsw2000.githubclient.domain.entities.UserRepo
 
 class ClientApiUseCaseImpl(
     private val api: ClientApi,
@@ -23,5 +25,13 @@ class ClientApiUseCaseImpl(
 
     override fun getRxUserList(): Single<List<User>> {
         return api.getRxUserList()
+    }
+
+    override fun getRxUserInfo(login: String): Single<UserDetails> {
+        return api.getRxUserInfo(login)
+    }
+
+    override fun getRxUserRepositories(): Single<List<UserRepo>> {
+        return api.getRxUserRepositories()
     }
 }

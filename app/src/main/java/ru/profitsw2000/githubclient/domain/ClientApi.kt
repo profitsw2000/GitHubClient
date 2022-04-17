@@ -3,13 +3,19 @@ package ru.profitsw2000.githubclient.domain
 import androidx.annotation.WorkerThread
 import io.reactivex.rxjava3.core.Single
 import ru.profitsw2000.githubclient.domain.entities.User
+import ru.profitsw2000.githubclient.domain.entities.UserDetails
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
+import ru.profitsw2000.githubclient.domain.entities.UserRepo
 
 interface ClientApi {
     @WorkerThread
     fun getUserList(): List<UserProfile>?
 
     fun getRxUserList(): Single<List<User>>
+
+    fun getRxUserInfo(login: String): Single<UserDetails>
+
+    fun getRxUserRepositories(): Single<List<UserRepo>>
 
     @WorkerThread
     fun createNewUser(name: String, info: String, city: String, avatarUrl: String): Boolean

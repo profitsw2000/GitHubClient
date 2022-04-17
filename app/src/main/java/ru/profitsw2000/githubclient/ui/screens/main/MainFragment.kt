@@ -59,10 +59,6 @@ class MainFragment : Fragment() {
             }
         }
 
-        viewModel?.getUserProfileList?.subscribe(handler) {
-            //if (it != null) {adapter?.setData(it)}
-        }
-
         viewModel?.getUserList?.subscribe(handler) {
             if (it != null) {adapter?.setData(it)}
         }

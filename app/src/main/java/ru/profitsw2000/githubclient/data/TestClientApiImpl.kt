@@ -8,7 +8,9 @@ import ru.profitsw2000.githubclient.data.repository.LocalRepoImpl
 import ru.profitsw2000.githubclient.data.retrofit.GitHubApi
 import ru.profitsw2000.githubclient.domain.ClientApi
 import ru.profitsw2000.githubclient.domain.entities.User
+import ru.profitsw2000.githubclient.domain.entities.UserDetails
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
+import ru.profitsw2000.githubclient.domain.entities.UserRepo
 
 class TestClientApiImpl : ClientApi {
     private val localRepo = LocalRepoImpl()
@@ -28,6 +30,14 @@ class TestClientApiImpl : ClientApi {
 
     override fun getRxUserList(): Single<List<User>> {
         return api.listUsers()
+    }
+
+    override fun getRxUserInfo(login: String): Single<UserDetails> {
+        return api.userInfo(login)
+    }
+
+    override fun getRxUserRepositories(): Single<List<UserRepo>> {
+        TODO("Not yet implemented")
     }
 
     override fun createNewUser(

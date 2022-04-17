@@ -10,11 +10,11 @@ import ru.profitsw2000.githubclient.utils.Publisher
 interface ViewModel {
     val showProgress: Publisher<Boolean>
     val getUserRepoList: Publisher<List<UserRepo>>
-    val getUserInfo: Publisher<List<UserDetails>>
+    val getUserInfo: Publisher<UserDetails>
     val errorCode: Publisher<Int?>
 
     @MainThread
-    fun onLoadUserInfo()
+    fun onLoadUserInfo(login: String)
 
     fun onLoadUserRepoList()
 
