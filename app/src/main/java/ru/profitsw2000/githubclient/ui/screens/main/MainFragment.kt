@@ -60,7 +60,24 @@ class MainFragment : Fragment() {
         viewModel?.getUserProfileList?.subscribe(handler) {
             if (it != null) {adapter?.setData(it)}
         }
-        viewModel?.onLoadUserList()
+
+        viewModel?.getUserList?.subscribe(handler) {
+            val users: MutableList<UserProfile> = mutableListOf()
+
+            if (it != null) {
+                for (user in it){
+                    users.add(UserProfile(user.id,
+                                        user.login,
+                                        user.avatar_url,
+                                    "Moscow",
+                                        user.avatar_url,
+                                        mutableListOf("Repo1", "Repo2")))
+                }
+                adapter?.setData(users)
+            }
+        }
+
+        viewModel?.onLoadRxUserList()
     }
 
     override fun onCreateView(
@@ -85,6 +102,7 @@ class MainFragment : Fragment() {
         super.onDestroy()
         viewModel?.showProgress?.unsubscribeAll()
         viewModel?.getUserProfileList?.unsubscribeAll()
+        viewModel?.getUserList?.unsubscribeAll()
         viewModel?.errorCode?.unsubscribeAll()
     }
 

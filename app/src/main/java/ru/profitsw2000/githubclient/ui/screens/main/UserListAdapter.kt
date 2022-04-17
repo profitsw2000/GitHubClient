@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
 import ru.profitsw2000.githubclient.databinding.UserListItemViewBinding
@@ -38,6 +39,7 @@ class UserListAdapter(val onItemClickListener: OnItemClickListener): RecyclerVie
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(userProfile: UserProfile) {
             with(binding){
+                personPhotoImageView.load(userProfile.avatarUrl)
                 personNameTextView.text = userProfile.userName
                 aboutPersonTextView.text = userProfile.userInfo
                 personCityTextView.text = userProfile.userCity
