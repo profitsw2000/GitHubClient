@@ -15,8 +15,4 @@ interface ViewModel {
 
     @MainThread
     fun onLoadUserInfo(login: String)
-
-    fun onLoadUserRepoList()
-
-    
 }

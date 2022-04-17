@@ -10,7 +10,7 @@ import ru.profitsw2000.githubclient.utils.Publisher
 private const val ERROR_EMPTY_USER_DESCRIPTION = 1
 private const val ERROR_EMPTY_USER_REPO_LIST = 2
 
-class DetailsViewModel (private val clientApiUseCase: ClientApiUseCase) : ViewModel {
+class DetailsViewModel(private val clientApiUseCase: ClientApiUseCase) : ViewModel {
     override val showProgress: Publisher<Boolean> = Publisher()
     override val getUserRepoList: Publisher<List<UserRepo>> = Publisher()
     override val getUserInfo: Publisher<UserDetails> = Publisher()
@@ -19,17 +19,33 @@ class DetailsViewModel (private val clientApiUseCase: ClientApiUseCase) : ViewMo
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onLoadUserInfo(login: String) {
-        showProgress.post(true)
-        compositeDisposable.add(
-            clientApiUseCase.getRxUserInfo(login)
-                .subscribeBy {
-                    showProgress.post(false)
-                    getUserInfo.post(it)
-                }
-        )
-    }
+        var inProgress1 = true
+        var inProgress2 = true
 
-    override fun onLoadUserRepoList() {
-        TODO("Not yet implemented")
+        showProgress.post(inProgress1 && inProgress2)
+        val disposable1 =
+            clientApiUseCase.getRxUserInfo(login)
+                .subscribeBy({
+                    showProgress.post(false)
+                    errorCode.post(ERROR_EMPTY_USER_DESCRIPTION)
+                }, {
+                    inProgress1 = false
+                    showProgress.post(inProgress1 && inProgress2)
+                    getUserInfo.post(it)
+                })
+
+        val disposable2 =
+            clientApiUseCase.getRxUserRepositories(login)
+                .subscribeBy({
+                    showProgress.post(false)
+                    errorCode.post(ERROR_EMPTY_USER_REPO_LIST)
+                }, {
+                    inProgress2 = false
+                    showProgress.post(inProgress1 && inProgress2)
+                    getUserRepoList.post(it)
+                })
+
+        compositeDisposable.addAll(disposable1)
+        compositeDisposable.addAll(disposable2)
     }
 }

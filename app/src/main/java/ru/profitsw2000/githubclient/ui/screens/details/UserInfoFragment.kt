@@ -34,7 +34,7 @@ class UserInfoFragment : Fragment() {
 
         viewModel = DetailsViewModel(context?.app!!.clientApiUseCase)
 
-        viewModel?.showProgress?.subscribe(handler){
+        viewModel?.showProgress?.subscribe(handler) {
             if (it == true) {
                 showProgress()
             } else {
@@ -43,12 +43,22 @@ class UserInfoFragment : Fragment() {
         }
 
         viewModel?.errorCode?.subscribe(handler) {
-
+            when (it) {
+                ERROR_EMPTY_USER_DESCRIPTION -> showDialog(
+                    getString(R.string.dialog_empty_users_list_error_title),
+                    getString(R.string.dialog_user_info_load_error_text)
+                )
+                ERROR_EMPTY_USER_REPO_LIST -> showDialog(
+                    getString(R.string.dialog_empty_users_list_error_title),
+                    getString(R.string.dialog_user_repos_load_error_text)
+                )
+                else -> {}
+            }
         }
 
         viewModel?.getUserInfo?.subscribe(handler) {
             if (it != null) {
-                with(binding){
+                with(binding) {
                     personPhotoImageView.load(it.avatar_url)
                     loginTextView.setText(it.login)
                     personNameTextView.setText(it.name)
@@ -58,7 +68,9 @@ class UserInfoFragment : Fragment() {
         }
 
         viewModel?.getUserRepoList?.subscribe(handler) {
-
+            if (it != null) {
+                adapter?.setData(it)
+            }
         }
 
         viewModel?.onLoadUserInfo(userLogin!!)
@@ -75,8 +87,7 @@ class UserInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //adapter?.setData(listOf("Repo 1", "Repo 2"))
+        binding.repositoriesListRecyclerview.adapter = adapter
     }
 
     override fun onDestroyView() {
@@ -93,7 +104,7 @@ class UserInfoFragment : Fragment() {
     }
 
     private fun showProgress() {
-        with(binding){
+        with(binding) {
             progressBar.visibility = View.VISIBLE
             userInfoCardView.visibility = View.GONE
             userRepositoryListCardView.visibility = View.GONE
@@ -101,7 +112,7 @@ class UserInfoFragment : Fragment() {
     }
 
     private fun hideProgress() {
-        with(binding){
+        with(binding) {
             progressBar.visibility = View.GONE
             userInfoCardView.visibility = View.VISIBLE
             userRepositoryListCardView.visibility = View.VISIBLE
@@ -113,12 +124,12 @@ class UserInfoFragment : Fragment() {
             AlertDialog.Builder(it)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton(getString(R.string.dialog_button_ok_text)){
-                        dialog, _ -> dialog.dismiss() }
+                .setPositiveButton(getString(R.string.dialog_button_ok_text)) { dialog, _ -> dialog.dismiss() }
                 .create()
                 .show()
         }
     }
+
     companion object {
         @JvmStatic
         fun newInstance(bundle: Bundle): UserInfoFragment {

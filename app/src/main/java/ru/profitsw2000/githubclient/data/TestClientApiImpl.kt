@@ -36,8 +36,8 @@ class TestClientApiImpl : ClientApi {
         return api.userInfo(login)
     }
 
-    override fun getRxUserRepositories(): Single<List<UserRepo>> {
-        TODO("Not yet implemented")
+    override fun getRxUserRepositories(login: String): Single<List<UserRepo>> {
+        return api.listRepos(login)
     }
 
     override fun createNewUser(

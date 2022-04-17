@@ -14,5 +14,5 @@ interface ClientApiUseCase {
 
     fun getRxUserInfo(login: String): Single<UserDetails>
 
-    fun getRxUserRepositories(): Single<List<UserRepo>>
+    fun getRxUserRepositories(login: String): Single<List<UserRepo>>
 }

@@ -52,15 +52,19 @@ class MainFragment : Fragment() {
         }
 
         viewModel?.errorCode?.subscribe(handler) {
-            when(it){
-                ERROR_EMPTY_USERS_LIST -> showDialog(getString(R.string.dialog_empty_users_list_error_title),
-                    getString(R.string.dialog_empty_users_list_error_text))
+            when (it) {
+                ERROR_EMPTY_USERS_LIST -> showDialog(
+                    getString(R.string.dialog_empty_users_list_error_title),
+                    getString(R.string.dialog_empty_users_list_error_text)
+                )
                 else -> {}
             }
         }
 
         viewModel?.getUserList?.subscribe(handler) {
-            if (it != null) {adapter?.setData(it)}
+            if (it != null) {
+                adapter?.setData(it)
+            }
         }
 
         viewModel?.onLoadRxUserList()
@@ -93,14 +97,14 @@ class MainFragment : Fragment() {
     }
 
     private fun showProgress() {
-        with(binding){
+        with(binding) {
             progressBar.visibility = View.VISIBLE
             userListRecyclerview.visibility = View.GONE
         }
     }
 
     private fun hideProgress() {
-        with(binding){
+        with(binding) {
             progressBar.visibility = View.GONE
             userListRecyclerview.visibility = View.VISIBLE
         }
@@ -111,8 +115,7 @@ class MainFragment : Fragment() {
             AlertDialog.Builder(it)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton(getString(R.string.dialog_button_ok_text)){
-                        dialog, _ -> dialog.dismiss() }
+                .setPositiveButton(getString(R.string.dialog_button_ok_text)) { dialog, _ -> dialog.dismiss() }
                 .create()
                 .show()
         }

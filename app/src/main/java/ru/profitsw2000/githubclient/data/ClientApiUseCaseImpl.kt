@@ -31,7 +31,7 @@ class ClientApiUseCaseImpl(
         return api.getRxUserInfo(login)
     }
 
-    override fun getRxUserRepositories(): Single<List<UserRepo>> {
-        return api.getRxUserRepositories()
+    override fun getRxUserRepositories(login: String): Single<List<UserRepo>> {
+        return api.getRxUserRepositories(login)
     }
 }

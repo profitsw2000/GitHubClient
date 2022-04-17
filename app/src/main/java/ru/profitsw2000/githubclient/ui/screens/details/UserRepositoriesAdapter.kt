@@ -5,13 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.profitsw2000.githubclient.databinding.UserRepositoryListItemViewBinding
+import ru.profitsw2000.githubclient.domain.entities.UserRepo
 
 class UserRepositoriesAdapter : RecyclerView.Adapter<UserRepositoriesAdapter.ViewHolder>(){
 
     private lateinit var binding: UserRepositoryListItemViewBinding
-    private var data: List<String> = arrayListOf()
+    private var data: List<UserRepo> = arrayListOf()
 
-    fun setData (data: List<String>) {
+    fun setData (data: List<UserRepo>) {
         this.data = data
         notifyDataSetChanged()
     }
@@ -37,9 +38,9 @@ class UserRepositoriesAdapter : RecyclerView.Adapter<UserRepositoriesAdapter.Vie
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(userRepo: String) {
+        fun bind(userRepo: UserRepo) {
             with(binding){
-                userRepositoryNameTextView.text = userRepo
+                userRepositoryNameTextView.text = userRepo.name
             }
         }
     }

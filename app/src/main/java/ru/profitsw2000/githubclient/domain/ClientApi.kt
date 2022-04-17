@@ -15,7 +15,7 @@ interface ClientApi {
 
     fun getRxUserInfo(login: String): Single<UserDetails>
 
-    fun getRxUserRepositories(): Single<List<UserRepo>>
+    fun getRxUserRepositories(login: String): Single<List<UserRepo>>
 
     @WorkerThread
     fun createNewUser(name: String, info: String, city: String, avatarUrl: String): Boolean
