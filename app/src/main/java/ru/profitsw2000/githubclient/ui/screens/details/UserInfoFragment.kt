@@ -31,15 +31,15 @@ class UserInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val userProfile = arguments?.getParcelable<UserProfile>(BUNDLE_EXTRA)
+        val userLogin = arguments?.getString(BUNDLE_EXTRA)
 
         with(binding) {
-            personNameTextView.text = userProfile?.userName
-            aboutPersonTextView.text = userProfile?.userInfo
-            personCityTextView.text = userProfile?.userCity
+            personNameTextView.text = userLogin
+            aboutPersonTextView.text = userLogin
+            personCityTextView.text = userLogin
             repositoriesListRecyclerview.adapter = adapter
         }
-        adapter?.setData(userProfile?.userRepositories!!)
+        adapter?.setData(listOf("Repo 1", "Repo 2"))
     }
 
     override fun onDestroyView() {
