@@ -8,13 +8,14 @@ import coil.api.load
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
 import ru.profitsw2000.githubclient.databinding.UserListItemViewBinding
+import ru.profitsw2000.githubclient.domain.entities.User
 
 class UserListAdapter(val onItemClickListener: OnItemClickListener): RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
-    private var data: List<UserProfile> = arrayListOf()
+    private var data: List<User> = arrayListOf()
     private lateinit var binding: UserListItemViewBinding
 
-    fun setData (data: List<UserProfile>) {
+    fun setData (data: List<User>) {
         this.data = data
         notifyDataSetChanged()
     }
@@ -37,14 +38,13 @@ class UserListAdapter(val onItemClickListener: OnItemClickListener): RecyclerVie
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(userProfile: UserProfile) {
+        fun bind(user: User) {
             with(binding){
-                personPhotoImageView.load(userProfile.avatarUrl)
-                personNameTextView.text = userProfile.userName
-                aboutPersonTextView.text = userProfile.userInfo
-                personCityTextView.text = userProfile.userCity
+                personPhotoImageView.load(user.avatar_url)
+                loginTextView.text = user.login
+                userTypeTextView.text = user.type
                 root.setOnClickListener {
-                    onItemClickListener.onItemClick(userProfile)
+                    onItemClickListener.onItemClick(user)
                 }
             }
         }

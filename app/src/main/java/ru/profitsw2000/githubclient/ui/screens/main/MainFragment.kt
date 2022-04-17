@@ -13,6 +13,7 @@ import ru.profitsw2000.githubclient.R
 import ru.profitsw2000.githubclient.app
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
 import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
+import ru.profitsw2000.githubclient.domain.entities.User
 import ru.profitsw2000.githubclient.ui.ViewModel
 import ru.profitsw2000.githubclient.ui.screens.details.UserInfoFragment
 
@@ -32,15 +33,16 @@ class MainFragment : Fragment() {
         retainInstance = true
 
         adapter = UserListAdapter(object : OnItemClickListener {
-            override fun onItemClick(userProfile: UserProfile) {
+            override fun onItemClick(user: User) {
                 val bundle = Bundle().apply {
-                    putParcelable(BUNDLE_EXTRA, userProfile)
+                    putString(BUNDLE_EXTRA, user.login)
                 }
                 openFragment(UserInfoFragment.newInstance(bundle))
             }
         })
 
         viewModel = restoreViewModel()
+
         viewModel?.showProgress?.subscribe(handler) {
             if (it == true) {
                 showProgress()
@@ -58,23 +60,11 @@ class MainFragment : Fragment() {
         }
 
         viewModel?.getUserProfileList?.subscribe(handler) {
-            if (it != null) {adapter?.setData(it)}
+            //if (it != null) {adapter?.setData(it)}
         }
 
         viewModel?.getUserList?.subscribe(handler) {
-            val users: MutableList<UserProfile> = mutableListOf()
-
-            if (it != null) {
-                for (user in it){
-                    users.add(UserProfile(user.id,
-                                        user.login,
-                                        user.avatar_url,
-                                    "Moscow",
-                                        user.avatar_url,
-                                        mutableListOf("Repo1", "Repo2")))
-                }
-                adapter?.setData(users)
-            }
+            if (it != null) {adapter?.setData(it)}
         }
 
         viewModel?.onLoadRxUserList()

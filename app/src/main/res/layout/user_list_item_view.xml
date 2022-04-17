@@ -29,7 +29,7 @@
             app:strokeWidth="1dp" />
 
         <TextView
-            android:id="@+id/person_name_text_view"
+            android:id="@+id/login_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/person_photo_image_view"
@@ -40,26 +40,16 @@
             />
 
         <TextView
-            android:id="@+id/about_person_text_view"
+            android:id="@+id/user_type_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/person_name_text_view"
+            android:layout_below="@+id/login_text_view"
             android:textColor="@color/black"
             android:alpha="0.8"
             android:layout_marginTop="@dimen/margin_top_item_text_views"
             android:layout_toRightOf="@+id/person_photo_image_view"
-            tools:text="Junior Android and iOS developer for unknown corporation." />
+            tools:text="Organization" />
 
-        <TextView
-            android:id="@+id/person_city_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/about_person_text_view"
-            android:layout_marginTop="@dimen/margin_top_item_text_views"
-            android:layout_toRightOf="@+id/person_photo_image_view"
-            android:textColor="@color/black"
-            android:alpha="0.6"
-            tools:text="City: " />
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>
 
