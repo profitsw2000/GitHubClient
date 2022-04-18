@@ -34,6 +34,12 @@ class UserInfoFragment : Fragment() {
 
         viewModel = DetailsViewModel(context?.app!!.clientApiUseCase)
 
+        viewModelSubscribe()
+
+        viewModel?.onLoadUserInfo(userLogin!!)
+    }
+
+    private fun viewModelSubscribe() {
         viewModel?.showProgress?.subscribe(handler) {
             if (it == true) {
                 showProgress()
@@ -72,9 +78,6 @@ class UserInfoFragment : Fragment() {
                 adapter?.setData(it)
             }
         }
-
-        viewModel?.onLoadUserInfo(userLogin!!)
-
     }
 
     override fun onCreateView(

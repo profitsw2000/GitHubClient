@@ -43,6 +43,12 @@ class MainFragment : Fragment() {
 
         viewModel = restoreViewModel()
 
+        viewModelSubscribe()
+
+        viewModel?.onLoadRxUserList()
+    }
+
+    private fun viewModelSubscribe() {
         viewModel?.showProgress?.subscribe(handler) {
             if (it == true) {
                 showProgress()
@@ -66,8 +72,6 @@ class MainFragment : Fragment() {
                 adapter?.setData(it)
             }
         }
-
-        viewModel?.onLoadRxUserList()
     }
 
     override fun onCreateView(
