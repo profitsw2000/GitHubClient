@@ -48,4 +48,8 @@ class DetailsViewModel(private val clientApiUseCase: ClientApiUseCase) : ViewMod
         compositeDisposable.addAll(disposable1)
         compositeDisposable.addAll(disposable2)
     }
+
+    override fun onCleared() {
+        compositeDisposable.clear()
+    }
 }

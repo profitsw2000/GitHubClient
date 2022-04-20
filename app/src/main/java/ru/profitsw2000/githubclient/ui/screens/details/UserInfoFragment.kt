@@ -104,6 +104,7 @@ class UserInfoFragment : Fragment() {
         viewModel?.getUserInfo?.unsubscribeAll()
         viewModel?.getUserRepoList?.unsubscribeAll()
         viewModel?.errorCode?.unsubscribeAll()
+        viewModel?.onCleared()
     }
 
     private fun showProgress() {
