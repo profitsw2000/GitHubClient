@@ -1,6 +1,7 @@
 package ru.profitsw2000.githubclient.ui.screens.main
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,7 +18,6 @@ import ru.profitsw2000.githubclient.domain.entities.User
 import ru.profitsw2000.githubclient.ui.ViewModel
 import ru.profitsw2000.githubclient.ui.screens.details.UserInfoFragment
 
-private const val BUNDLE_EXTRA = "user profile"
 private const val ERROR_EMPTY_USERS_LIST = 1
 
 class MainFragment : Fragment() {
@@ -27,6 +27,14 @@ class MainFragment : Fragment() {
     private var viewModel: ViewModel? = null
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private var adapter: UserListAdapter? = null
+    private val controller by lazy { activity as Controller }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (activity !is Controller) {
+            throw IllegalStateException("Activity должна наследоваться от Controller")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +42,7 @@ class MainFragment : Fragment() {
 
         adapter = UserListAdapter(object : OnItemClickListener {
             override fun onItemClick(user: User) {
-                val bundle = Bundle().apply {
-                    putString(BUNDLE_EXTRA, user.login)
-                }
-                openFragment(UserInfoFragment.newInstance(bundle))
+                controller.openUserDetails(user.login)
             }
         })
 
@@ -130,20 +135,12 @@ class MainFragment : Fragment() {
         return MainViewModel(context?.app!!.clientApiUseCase)
     }
 
-    private fun openFragment(fragment: Fragment) {
-
-        val manager = activity?.supportFragmentManager
-
-        manager?.let {
-            manager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack("")
-                .commitAllowingStateLoss()
-        }
-    }
-
     companion object {
         @JvmStatic
         fun newInstance() = MainFragment()
+    }
+
+    interface Controller {
+        fun openUserDetails(login: String)
     }
 }
