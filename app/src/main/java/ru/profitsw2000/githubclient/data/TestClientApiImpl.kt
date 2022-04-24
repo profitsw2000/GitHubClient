@@ -1,5 +1,6 @@
 package ru.profitsw2000.githubclient.data
 
+
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
@@ -21,12 +22,20 @@ class TestClientApiImpl : ClientApi {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
     private val api: GitHubApi = retrofit.create(GitHubApi::class.java)
+=======
+import ru.profitsw2000.githubclient.data.repository.LocalRepoImpl
+import ru.profitsw2000.githubclient.domain.ClientApi
+import ru.profitsw2000.githubclient.domain.entities.UserProfile
+
+class TestClientApiImpl : ClientApi {
+    private val localRepo = LocalRepoImpl()
 
     override fun getUserList(): List<UserProfile>? {
         val userList = localRepo.getAllUsers()
         Thread.sleep(2_000)
         return userList
     }
+
 
     override fun getRxUserList(): Single<List<User>> {
         return api.listUsers()
@@ -40,6 +49,7 @@ class TestClientApiImpl : ClientApi {
         return api.listRepos(login)
     }
 
+=======
     override fun createNewUser(
         name: String,
         info: String,

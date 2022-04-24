@@ -9,6 +9,11 @@ import ru.profitsw2000.githubclient.domain.entities.User
 import ru.profitsw2000.githubclient.domain.entities.UserDetails
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
 import ru.profitsw2000.githubclient.domain.entities.UserRepo
+=======
+import ru.profitsw2000.githubclient.domain.ClientApi
+import ru.profitsw2000.githubclient.domain.ClientApiUseCase
+import ru.profitsw2000.githubclient.domain.entities.UserProfile
+
 
 class ClientApiUseCaseImpl(
     private val api: ClientApi,
@@ -23,6 +28,7 @@ class ClientApiUseCaseImpl(
         }.start()
     }
 
+
     override fun getRxUserList(): Single<List<User>> {
         return api.getRxUserList()
     }
@@ -34,4 +40,6 @@ class ClientApiUseCaseImpl(
     override fun getRxUserRepositories(login: String): Single<List<UserRepo>> {
         return api.getRxUserRepositories(login)
     }
+=======
+
 }

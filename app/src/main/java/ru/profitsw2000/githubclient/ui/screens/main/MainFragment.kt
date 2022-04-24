@@ -14,6 +14,7 @@ import ru.profitsw2000.githubclient.app
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
 import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
 import ru.profitsw2000.githubclient.domain.entities.User
+=======
 import ru.profitsw2000.githubclient.ui.ViewModel
 import ru.profitsw2000.githubclient.ui.screens.details.UserInfoFragment
 
@@ -36,6 +37,10 @@ class MainFragment : Fragment() {
             override fun onItemClick(user: User) {
                 val bundle = Bundle().apply {
                     putString(BUNDLE_EXTRA, user.login)
+=======
+            override fun onItemClick(userProfile: UserProfile) {
+                val bundle = Bundle().apply {
+                    putParcelable(BUNDLE_EXTRA, userProfile)
                 }
                 openFragment(UserInfoFragment.newInstance(bundle))
             }
@@ -49,6 +54,7 @@ class MainFragment : Fragment() {
     }
 
     private fun viewModelSubscribe() {
+=======
         viewModel?.showProgress?.subscribe(handler) {
             if (it == true) {
                 showProgress()
@@ -63,6 +69,10 @@ class MainFragment : Fragment() {
                     getString(R.string.dialog_empty_users_list_error_title),
                     getString(R.string.dialog_empty_users_list_error_text)
                 )
+=======
+            when(it){
+                ERROR_EMPTY_USERS_LIST -> showDialog(getString(R.string.dialog_empty_users_list_error_title),
+                    getString(R.string.dialog_empty_users_list_error_text))
                 else -> {}
             }
         }
@@ -72,6 +82,11 @@ class MainFragment : Fragment() {
                 adapter?.setData(it)
             }
         }
+=======
+        viewModel?.getUserProfileList?.subscribe(handler) {
+            if (it != null) {adapter?.setData(it)}
+        }
+        viewModel?.onLoadUserList()
     }
 
     override fun onCreateView(
@@ -97,11 +112,14 @@ class MainFragment : Fragment() {
         viewModel?.showProgress?.unsubscribeAll()
         viewModel?.getUserProfileList?.unsubscribeAll()
         viewModel?.getUserList?.unsubscribeAll()
+=======
         viewModel?.errorCode?.unsubscribeAll()
     }
 
     private fun showProgress() {
         with(binding) {
+=======
+        with(binding){
             progressBar.visibility = View.VISIBLE
             userListRecyclerview.visibility = View.GONE
         }
@@ -109,6 +127,8 @@ class MainFragment : Fragment() {
 
     private fun hideProgress() {
         with(binding) {
+=======
+        with(binding){
             progressBar.visibility = View.GONE
             userListRecyclerview.visibility = View.VISIBLE
         }
@@ -120,6 +140,9 @@ class MainFragment : Fragment() {
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(getString(R.string.dialog_button_ok_text)) { dialog, _ -> dialog.dismiss() }
+=======
+                .setPositiveButton(getString(R.string.dialog_button_ok_text)){
+                        dialog, _ -> dialog.dismiss() }
                 .create()
                 .show()
         }

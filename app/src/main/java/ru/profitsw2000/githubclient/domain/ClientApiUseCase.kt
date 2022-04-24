@@ -15,4 +15,9 @@ interface ClientApiUseCase {
     fun getRxUserInfo(login: String): Single<UserDetails>
 
     fun getRxUserRepositories(login: String): Single<List<UserRepo>>
+=======
+import ru.profitsw2000.githubclient.domain.entities.UserProfile
+
+interface ClientApiUseCase {
+    fun getUserList(@MainThread callback: (List<UserProfile>?) -> Unit)
 }

@@ -16,6 +16,17 @@ class UserListAdapter(val onItemClickListener: OnItemClickListener): RecyclerVie
     private lateinit var binding: UserListItemViewBinding
 
     fun setData (data: List<User>) {
+=======
+import ru.profitsw2000.githubclient.utils.OnItemClickListener
+import ru.profitsw2000.githubclient.domain.entities.UserProfile
+import ru.profitsw2000.githubclient.databinding.UserListItemViewBinding
+
+class UserListAdapter(val onItemClickListener: OnItemClickListener): RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
+
+    private var data: List<UserProfile> = arrayListOf()
+    private lateinit var binding: UserListItemViewBinding
+
+    fun setData (data: List<UserProfile>) {
         this.data = data
         notifyDataSetChanged()
     }
@@ -45,6 +56,14 @@ class UserListAdapter(val onItemClickListener: OnItemClickListener): RecyclerVie
                 userTypeTextView.text = user.type
                 root.setOnClickListener {
                     onItemClickListener.onItemClick(user)
+=======
+        fun bind(userProfile: UserProfile) {
+            with(binding){
+                personNameTextView.text = userProfile.userName
+                aboutPersonTextView.text = userProfile.userInfo
+                personCityTextView.text = userProfile.userCity
+                root.setOnClickListener {
+                    onItemClickListener.onItemClick(userProfile)
                 }
             }
         }

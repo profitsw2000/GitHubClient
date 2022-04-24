@@ -6,6 +6,8 @@ import ru.profitsw2000.githubclient.domain.entities.User
 import ru.profitsw2000.githubclient.domain.entities.UserDetails
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
 import ru.profitsw2000.githubclient.domain.entities.UserRepo
+=======
+import ru.profitsw2000.githubclient.domain.entities.UserProfile
 
 interface ClientApi {
     @WorkerThread
@@ -17,6 +19,7 @@ interface ClientApi {
 
     fun getRxUserRepositories(login: String): Single<List<UserRepo>>
 
+=======
     @WorkerThread
     fun createNewUser(name: String, info: String, city: String, avatarUrl: String): Boolean
 

@@ -4,6 +4,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import ru.profitsw2000.githubclient.domain.ClientApiUseCase
 import ru.profitsw2000.githubclient.domain.entities.User
+=======
+import ru.profitsw2000.githubclient.domain.ClientApiUseCase
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
 import ru.profitsw2000.githubclient.ui.ViewModel
 import ru.profitsw2000.githubclient.utils.Publisher
@@ -18,6 +20,9 @@ class MainViewModel (private val clientApiUseCase: ClientApiUseCase) : ViewModel
     override val errorCode: Publisher<Int?> = Publisher()
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
+=======
+    override val errorCode: Publisher<Int?> = Publisher()
 
     override fun onLoadUserList() {
         showProgress.post(true)
@@ -41,4 +46,5 @@ class MainViewModel (private val clientApiUseCase: ClientApiUseCase) : ViewModel
                 }
         )
     }
+=======
 }
