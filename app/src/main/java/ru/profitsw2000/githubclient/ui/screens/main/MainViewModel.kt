@@ -42,6 +42,17 @@ class MainViewModel (private val clientApiUseCase: ClientApiUseCase) : ViewModel
         )
     }
 
+    override fun onLoadRxUserList(fromId: Int) {
+        showProgress.post(true)
+        compositeDisposable.add(
+            clientApiUseCase.getRxUserList(fromId)
+                .subscribeBy {
+                    showProgress.post(false)
+                    getUserList.post(it)
+                }
+        )
+    }
+
     override fun onCleared() {
         compositeDisposable.clear()
     }

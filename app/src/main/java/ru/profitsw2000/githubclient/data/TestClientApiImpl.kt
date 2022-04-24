@@ -32,6 +32,10 @@ class TestClientApiImpl : ClientApi {
         return api.listUsers()
     }
 
+    override fun getRxUserList(fromId: Int): Single<List<User>> {
+        return api.listUsers(fromId)
+    }
+
     override fun getRxUserInfo(login: String): Single<UserDetails> {
         return api.userInfo(login)
     }

@@ -13,6 +13,8 @@ interface ClientApi {
 
     fun getRxUserList(): Single<List<User>>
 
+    fun getRxUserList(fromId: Int): Single<List<User>>
+
     fun getRxUserInfo(login: String): Single<UserDetails>
 
     fun getRxUserRepositories(login: String): Single<List<UserRepo>>

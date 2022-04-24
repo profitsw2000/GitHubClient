@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
 import ru.profitsw2000.githubclient.R
 import ru.profitsw2000.githubclient.app
@@ -28,6 +30,7 @@ class MainFragment : Fragment() {
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private var adapter: UserListAdapter? = null
     private val controller by lazy { activity as Controller }
+    private var userList: MutableList<User> = mutableListOf()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -74,7 +77,8 @@ class MainFragment : Fragment() {
 
         viewModel?.getUserList?.subscribe(handler) {
             if (it != null) {
-                adapter?.setData(it)
+                userList.addAll(userList.size, it)
+                adapter?.setData(userList)
             }
         }
     }
@@ -90,6 +94,16 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.userListRecyclerview.adapter = adapter
+        binding.userListRecyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!binding.userListRecyclerview.canScrollVertically(1)){
+                    if (!userList.isNullOrEmpty()) {
+                        viewModel?.onLoadRxUserList(userList.last().id)
+                    }
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {
@@ -109,7 +123,6 @@ class MainFragment : Fragment() {
     private fun showProgress() {
         with(binding) {
             progressBar.visibility = View.VISIBLE
-            userListRecyclerview.visibility = View.GONE
         }
     }
 

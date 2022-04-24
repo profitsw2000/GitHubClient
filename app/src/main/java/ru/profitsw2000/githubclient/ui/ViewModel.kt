@@ -16,5 +16,7 @@ interface ViewModel {
 
     fun onLoadRxUserList()
 
+    fun onLoadRxUserList(fromId: Int)
+
     fun onCleared()
 }
