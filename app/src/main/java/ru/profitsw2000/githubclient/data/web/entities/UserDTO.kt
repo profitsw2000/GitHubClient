@@ -1,6 +1,6 @@
-package ru.profitsw2000.githubclient.domain.entities
+package ru.profitsw2000.githubclient.data.web.entities
 
-data class User(
+data class UserDTO(
     val login: String,
     val id: Int,
     val avatar_url: String,

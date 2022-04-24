@@ -1,4 +1,4 @@
-package ru.profitsw2000.githubclient.domain.entities
+package ru.profitsw2000.githubclient.data.local.entities
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

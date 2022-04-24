@@ -9,16 +9,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
 import ru.profitsw2000.githubclient.R
 import ru.profitsw2000.githubclient.app
-import ru.profitsw2000.githubclient.domain.entities.UserProfile
+import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
+import ru.profitsw2000.githubclient.data.web.entities.UserDTO
 import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
-import ru.profitsw2000.githubclient.domain.entities.User
 import ru.profitsw2000.githubclient.ui.ViewModel
-import ru.profitsw2000.githubclient.ui.screens.details.UserInfoFragment
 
 private const val ERROR_EMPTY_USERS_LIST = 1
 
@@ -30,7 +28,7 @@ class MainFragment : Fragment() {
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private var adapter: UserListAdapter? = null
     private val controller by lazy { activity as Controller }
-    private var userList: MutableList<User> = mutableListOf()
+    private var userList: MutableList<UserDTO> = mutableListOf()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,7 +42,7 @@ class MainFragment : Fragment() {
         retainInstance = true
 
         adapter = UserListAdapter(object : OnItemClickListener {
-            override fun onItemClick(user: User) {
+            override fun onItemClick(user: UserDTO) {
                 controller.openUserDetails(user.login)
             }
         })
@@ -78,6 +76,15 @@ class MainFragment : Fragment() {
         viewModel?.getUserList?.subscribe(handler) {
             if (it != null) {
                 userList.addAll(userList.size, it)
+                adapter?.setData(userList)
+            }
+        }
+
+        viewModel?.getUserProfileList?.subscribe(handler) {
+            if(it != null) {
+                for (user in it) {
+                    userList.add(UserDTO(user.userName, user.id, user.avatarUrl, user.userInfo))
+                }
                 adapter?.setData(userList)
             }
         }
@@ -145,7 +152,7 @@ class MainFragment : Fragment() {
     }
 
     private fun restoreViewModel(): MainViewModel {
-        return MainViewModel(context?.app!!.clientApiUseCase)
+        return MainViewModel(context?.app!!.repositoryUseCase as WebRepositoryImpl)
     }
 
     companion object {

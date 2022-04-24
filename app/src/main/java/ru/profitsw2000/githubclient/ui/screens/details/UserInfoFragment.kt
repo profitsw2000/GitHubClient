@@ -11,9 +11,8 @@ import android.view.ViewGroup
 import coil.api.load
 import ru.profitsw2000.githubclient.R
 import ru.profitsw2000.githubclient.app
+import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
 import ru.profitsw2000.githubclient.databinding.FragmentUserInfoBinding
-import ru.profitsw2000.githubclient.domain.entities.UserProfile
-import ru.profitsw2000.githubclient.ui.ViewModel
 
 private const val BUNDLE_EXTRA = "user profile"
 private const val ERROR_EMPTY_USER_DESCRIPTION = 1
@@ -32,7 +31,7 @@ class UserInfoFragment : Fragment() {
         val userLogin = arguments?.getString(BUNDLE_EXTRA)
         adapter = UserRepositoriesAdapter()
 
-        viewModel = DetailsViewModel(context?.app!!.clientApiUseCase)
+        viewModel = DetailsViewModel(context?.app!!.repositoryUseCase as WebRepositoryImpl)
 
         viewModelSubscribe()
 

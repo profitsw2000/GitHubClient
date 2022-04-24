@@ -5,17 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import ru.profitsw2000.githubclient.data.web.entities.UserDTO
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
-import ru.profitsw2000.githubclient.domain.entities.UserProfile
 import ru.profitsw2000.githubclient.databinding.UserListItemViewBinding
-import ru.profitsw2000.githubclient.domain.entities.User
 
 class UserListAdapter(val onItemClickListener: OnItemClickListener): RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
-    private var data: List<User> = arrayListOf()
+    private var data: List<UserDTO> = arrayListOf()
     private lateinit var binding: UserListItemViewBinding
 
-    fun setData (data: List<User>) {
+    fun setData (data: List<UserDTO>) {
         this.data = data
         notifyDataSetChanged()
     }
@@ -38,7 +37,7 @@ class UserListAdapter(val onItemClickListener: OnItemClickListener): RecyclerVie
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(user: User) {
+        fun bind(user: UserDTO) {
             with(binding){
                 personPhotoImageView.load(user.avatar_url)
                 loginTextView.text = user.login
