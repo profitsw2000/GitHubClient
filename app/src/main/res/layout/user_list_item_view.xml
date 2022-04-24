@@ -29,6 +29,8 @@
             app:strokeWidth="1dp" />
 
         <TextView
+            android:id="@+id/login_text_view"
+=======
             android:id="@+id/person_name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,6 +42,10 @@
             />
 
         <TextView
+            android:id="@+id/user_type_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_text_view"
             android:id="@+id/about_person_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,6 +54,7 @@
             android:alpha="0.8"
             android:layout_marginTop="@dimen/margin_top_item_text_views"
             android:layout_toRightOf="@+id/person_photo_image_view"
+            tools:text="Organization" />
             tools:text="Junior Android and iOS developer for unknown corporation." />
 
         <TextView
