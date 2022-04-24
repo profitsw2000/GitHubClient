@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:strokeColor="@color/grey_600"
+    android:layout_margin="@dimen/user_list_item_card_view_margin"
+    app:cardCornerRadius="@dimen/corner_radius_size_fragment_card_view"
+    app:strokeWidth="@dimen/small_stroke_width"
+    android:id="@+id/user_list_item">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/user_list_item_rl_padding"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/person_photo_image_view"
+            android:layout_width="@dimen/user_list_item_person_photo_size"
+            android:layout_height="@dimen/user_list_item_person_photo_size"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/person_photo_image_view_margin"
+            android:src="@drawable/icon_user"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:strokeColor="@color/grey_600"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:id="@+id/person_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/person_photo_image_view"
+            android:layout_alignParentTop="true"
+            android:textSize="@dimen/user_list_item_name_text_size"
+            android:textColor="@color/black"
+            tools:text="Name"
+            />
+
+        <TextView
+            android:id="@+id/about_person_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/person_name_text_view"
+            android:textColor="@color/black"
+            android:alpha="0.8"
+            android:layout_marginTop="@dimen/margin_top_item_text_views"
+            android:layout_toRightOf="@+id/person_photo_image_view"
+            tools:text="Junior Android and iOS developer for unknown corporation." />
+
+        <TextView
+            android:id="@+id/person_city_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/about_person_text_view"
+            android:layout_marginTop="@dimen/margin_top_item_text_views"
+            android:layout_toRightOf="@+id/person_photo_image_view"
+            android:textColor="@color/black"
+            android:alpha="0.6"
+            tools:text="City: " />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
+
