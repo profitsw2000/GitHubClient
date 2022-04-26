@@ -9,10 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import coil.api.load
+import org.koin.android.ext.android.inject
 import ru.profitsw2000.githubclient.R
 import ru.profitsw2000.githubclient.app
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
 import ru.profitsw2000.githubclient.databinding.FragmentUserInfoBinding
+import ru.profitsw2000.githubclient.domain.RepositoryUseCase
 
 private const val BUNDLE_EXTRA = "user profile"
 private const val ERROR_EMPTY_USER_DESCRIPTION = 1
@@ -22,6 +24,7 @@ class UserInfoFragment : Fragment() {
 
     private var _binding: FragmentUserInfoBinding? = null
     private val binding get() = _binding!!
+    private val repositoryUseCase: RepositoryUseCase by inject()
     private var adapter: UserRepositoriesAdapter? = null
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private var viewModel: ru.profitsw2000.githubclient.ui.screens.details.ViewModel? = null
@@ -31,7 +34,7 @@ class UserInfoFragment : Fragment() {
         val userLogin = arguments?.getString(BUNDLE_EXTRA)
         adapter = UserRepositoriesAdapter()
 
-        viewModel = DetailsViewModel(context?.app!!.repositoryUseCase as WebRepositoryImpl)
+        viewModel = DetailsViewModel(repositoryUseCase as WebRepositoryImpl)
 
         viewModelSubscribe()
 

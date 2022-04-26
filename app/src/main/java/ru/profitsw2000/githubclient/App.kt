@@ -14,14 +14,14 @@ import ru.profitsw2000.githubclient.di.appModule
 import ru.profitsw2000.githubclient.domain.RepositoryUseCase
 
 class App : Application() {
-    private val retrofit = Retrofit.Builder()
+/*    private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.github.com/")
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
     private val api: GitHubApi = retrofit.create(GitHubApi::class.java)
 
-    val repositoryUseCase: RepositoryUseCase by lazy { WebRepositoryImpl(api) }
+    val repositoryUseCase: RepositoryUseCase by lazy { WebRepositoryImpl(api) }*/
     //val repositoryUseCase: MockRepositoryImpl by lazy { MockRepositoryImpl() }
 
     override fun onCreate() {

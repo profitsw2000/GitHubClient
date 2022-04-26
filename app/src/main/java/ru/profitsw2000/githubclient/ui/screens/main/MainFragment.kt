@@ -10,12 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.koin.android.ext.android.inject
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
 import ru.profitsw2000.githubclient.R
 import ru.profitsw2000.githubclient.app
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
 import ru.profitsw2000.githubclient.data.web.entities.UserDTO
 import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
+import ru.profitsw2000.githubclient.domain.RepositoryUseCase
 import ru.profitsw2000.githubclient.ui.ViewModel
 
 private const val ERROR_EMPTY_USERS_LIST = 1
@@ -25,6 +27,7 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private var viewModel: ViewModel? = null
+    private val repositoryUseCase: RepositoryUseCase by inject()
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private var adapter: UserListAdapter? = null
     private val controller by lazy { activity as Controller }
@@ -152,7 +155,7 @@ class MainFragment : Fragment() {
     }
 
     private fun restoreViewModel(): MainViewModel {
-        return MainViewModel(context?.app!!.repositoryUseCase as WebRepositoryImpl)
+        return MainViewModel(repositoryUseCase as WebRepositoryImpl)
     }
 
     companion object {
