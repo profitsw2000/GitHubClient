@@ -10,10 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
 import ru.profitsw2000.githubclient.R
-import ru.profitsw2000.githubclient.app
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
 import ru.profitsw2000.githubclient.data.web.entities.UserDTO
 import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private var adapter: UserListAdapter? = null
     private val controller by lazy { activity as Controller }
-    private var userList: MutableList<UserDTO> = mutableListOf()
+    private val userList: MutableList<UserDTO> by inject()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -96,7 +96,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -167,3 +167,4 @@ class MainFragment : Fragment() {
         fun openUserDetails(login: String)
     }
 }
+

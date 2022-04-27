@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import coil.api.load
 import org.koin.android.ext.android.inject
 import ru.profitsw2000.githubclient.R
-import ru.profitsw2000.githubclient.app
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
 import ru.profitsw2000.githubclient.databinding.FragmentUserInfoBinding
 import ru.profitsw2000.githubclient.domain.RepositoryUseCase
