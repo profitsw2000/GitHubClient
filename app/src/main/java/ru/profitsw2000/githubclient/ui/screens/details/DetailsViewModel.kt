@@ -5,6 +5,10 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
 import ru.profitsw2000.githubclient.data.web.entities.UserDetailsDTO
 import ru.profitsw2000.githubclient.data.web.entities.UserRepoDTO
+=======
+import ru.profitsw2000.githubclient.domain.ClientApiUseCase
+import ru.profitsw2000.githubclient.domain.entities.UserDetails
+import ru.profitsw2000.githubclient.domain.entities.UserRepo
 import ru.profitsw2000.githubclient.utils.Publisher
 
 private const val ERROR_EMPTY_USER_DESCRIPTION = 1
@@ -14,6 +18,11 @@ class DetailsViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewM
     override val showProgress: Publisher<Boolean> = Publisher()
     override val getUserRepoList: Publisher<List<UserRepoDTO>> = Publisher()
     override val getUserInfo: Publisher<UserDetailsDTO> = Publisher()
+=======
+class DetailsViewModel(private val clientApiUseCase: ClientApiUseCase) : ViewModel {
+    override val showProgress: Publisher<Boolean> = Publisher()
+    override val getUserRepoList: Publisher<List<UserRepo>> = Publisher()
+    override val getUserInfo: Publisher<UserDetails> = Publisher()
     override val errorCode: Publisher<Int?> = Publisher()
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -25,6 +34,8 @@ class DetailsViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewM
         showProgress.post(inProgress1 && inProgress2)
         val disposable1 =
             repositoryUseCase.getRxUserInfo(login)
+=======
+            clientApiUseCase.getRxUserInfo(login)
                 .subscribeBy({
                     showProgress.post(false)
                     errorCode.post(ERROR_EMPTY_USER_DESCRIPTION)
@@ -36,6 +47,8 @@ class DetailsViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewM
 
         val disposable2 =
             repositoryUseCase.getRxUserRepositories(login)
+=======
+            clientApiUseCase.getRxUserRepositories(login)
                 .subscribeBy({
                     showProgress.post(false)
                     errorCode.post(ERROR_EMPTY_USER_REPO_LIST)
@@ -52,4 +65,5 @@ class DetailsViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewM
     override fun onCleared() {
         compositeDisposable.clear()
     }
+=======
 }
