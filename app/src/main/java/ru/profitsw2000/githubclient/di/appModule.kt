@@ -40,7 +40,3 @@ val appModule = module {
     factory<Publisher<UserDetailsDTO>>(named("getUserInfo")) { Publisher() }
 
 }
-
-/*
-override val getUserRepoList: Publisher<List<UserRepoDTO>> = Publisher()
-override val getUserInfo: Publisher<UserDetailsDTO> = Publisher()*/
