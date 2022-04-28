@@ -1,6 +1,8 @@
 package ru.profitsw2000.githubclient.ui.screens.main
 
 import android.app.AlertDialog
+import android.content.Context
+=======
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,6 +10,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import ru.profitsw2000.githubclient.utils.OnItemClickListener
+import ru.profitsw2000.githubclient.R
+import ru.profitsw2000.githubclient.app
+import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
+import ru.profitsw2000.githubclient.data.web.entities.UserDTO
+import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
+import ru.profitsw2000.githubclient.ui.ViewModel
+
+=======
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
 import ru.profitsw2000.githubclient.R
 import ru.profitsw2000.githubclient.app
@@ -28,12 +40,25 @@ class MainFragment : Fragment() {
     private var viewModel: ViewModel? = null
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private var adapter: UserListAdapter? = null
+    private val controller by lazy { activity as Controller }
+    private var userList: MutableList<UserDTO> = mutableListOf()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (activity !is Controller) {
+            throw IllegalStateException("Activity должна наследоваться от Controller")
+        }
+    }
+=======
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
 
         adapter = UserListAdapter(object : OnItemClickListener {
+            override fun onItemClick(user: UserDTO) {
+                controller.openUserDetails(user.login)
+=======
             override fun onItemClick(user: User) {
                 val bundle = Bundle().apply {
                     putString(BUNDLE_EXTRA, user.login)
@@ -55,6 +80,7 @@ class MainFragment : Fragment() {
 
     private fun viewModelSubscribe() {
 =======
+=======
         viewModel?.showProgress?.subscribe(handler) {
             if (it == true) {
                 showProgress()
@@ -70,6 +96,7 @@ class MainFragment : Fragment() {
                     getString(R.string.dialog_empty_users_list_error_text)
                 )
 =======
+=======
             when(it){
                 ERROR_EMPTY_USERS_LIST -> showDialog(getString(R.string.dialog_empty_users_list_error_title),
                     getString(R.string.dialog_empty_users_list_error_text))
@@ -79,6 +106,20 @@ class MainFragment : Fragment() {
 
         viewModel?.getUserList?.subscribe(handler) {
             if (it != null) {
+                userList.addAll(userList.size, it)
+                adapter?.setData(userList)
+            }
+        }
+
+        viewModel?.getUserProfileList?.subscribe(handler) {
+            if(it != null) {
+                for (user in it) {
+                    userList.add(UserDTO(user.userName, user.id, user.avatarUrl, user.userInfo))
+                }
+                adapter?.setData(userList)
+            }
+        }
+=======
                 adapter?.setData(it)
             }
         }
@@ -100,6 +141,17 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.userListRecyclerview.adapter = adapter
+        binding.userListRecyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!binding.userListRecyclerview.canScrollVertically(1)){
+                    if (!userList.isNullOrEmpty()) {
+                        viewModel?.onLoadRxUserList(userList.last().id)
+                    }
+                }
+            }
+        })
+=======
     }
 
     override fun onDestroyView() {
@@ -112,12 +164,17 @@ class MainFragment : Fragment() {
         viewModel?.showProgress?.unsubscribeAll()
         viewModel?.getUserProfileList?.unsubscribeAll()
         viewModel?.getUserList?.unsubscribeAll()
+        viewModel?.errorCode?.unsubscribeAll()
+        viewModel?.onCleared()
+=======
 =======
         viewModel?.errorCode?.unsubscribeAll()
     }
 
     private fun showProgress() {
         with(binding) {
+            progressBar.visibility = View.VISIBLE
+=======
 =======
         with(binding){
             progressBar.visibility = View.VISIBLE
@@ -127,6 +184,7 @@ class MainFragment : Fragment() {
 
     private fun hideProgress() {
         with(binding) {
+=======
 =======
         with(binding){
             progressBar.visibility = View.GONE
@@ -141,6 +199,7 @@ class MainFragment : Fragment() {
                 .setMessage(message)
                 .setPositiveButton(getString(R.string.dialog_button_ok_text)) { dialog, _ -> dialog.dismiss() }
 =======
+=======
                 .setPositiveButton(getString(R.string.dialog_button_ok_text)){
                         dialog, _ -> dialog.dismiss() }
                 .create()
@@ -149,6 +208,8 @@ class MainFragment : Fragment() {
     }
 
     private fun restoreViewModel(): MainViewModel {
+        return MainViewModel(context?.app!!.repositoryUseCase as WebRepositoryImpl)
+=======
         return MainViewModel(context?.app!!.clientApiUseCase)
     }
 
@@ -168,4 +229,9 @@ class MainFragment : Fragment() {
         @JvmStatic
         fun newInstance() = MainFragment()
     }
+
+    interface Controller {
+        fun openUserDetails(login: String)
+    }
+=======
 }
