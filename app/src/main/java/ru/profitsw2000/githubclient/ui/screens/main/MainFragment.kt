@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
@@ -114,6 +115,10 @@ class MainFragment : Fragment() {
                 }
             }
         })
+
+        binding.searchUserInputLayout.setEndIconOnClickListener {
+            Toast.makeText(requireContext(),"Search ${binding.searchUserInputEditText.text}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {
