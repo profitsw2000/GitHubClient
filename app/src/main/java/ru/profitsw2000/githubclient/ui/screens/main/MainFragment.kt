@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.android.ext.android.inject
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
@@ -33,6 +34,8 @@ class MainFragment : Fragment() {
     private var adapter: UserListAdapter? = null
     private val controller by lazy { activity as Controller }
     private val userList: MutableList<UserDTO> by inject()
+    private var userPressedFlag: Boolean = false
+    private var searchButtonPressedFlag: Boolean = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -48,6 +51,7 @@ class MainFragment : Fragment() {
         adapter = UserListAdapter(object : OnItemClickListener {
             override fun onItemClick(user: UserDTO) {
                 controller.openUserDetails(user.login)
+                userPressedFlag = true
             }
         })
 
@@ -133,8 +137,21 @@ class MainFragment : Fragment() {
 
         binding.searchUserInputLayout.setEndIconOnClickListener {
             viewModel?.onLoadRxUser(binding.searchUserInputEditText.text.toString())
-            //Toast.makeText(requireContext(),"Search ${binding.searchUserInputEditText.text}", Toast.LENGTH_SHORT).show()
+            searchButtonPressedFlag = true
         }
+
+        binding.searchUserInputEditText.addTextChangedListener {
+            if (it.toString().isNullOrEmpty()
+                && !userPressedFlag
+                && searchButtonPressedFlag) {
+                searchButtonPressedFlag = false
+                userList.clear()
+                binding.userListRecyclerview.removeAllViews()
+                viewModel?.onLoadRxUserList()
+            }
+            userPressedFlag = false
+        }
+
     }
 
     override fun onDestroyView() {
