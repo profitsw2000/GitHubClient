@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -49,6 +50,10 @@ dependencies {
 
     //Koil image download
     implementation("io.coil-kt:coil:0.11.0")
+
+    // Dagger
+    implementation 'com.google.dagger:dagger:2.41'
+    kapt 'com.google.dagger:dagger-compiler:2.41'
 
     //Koin
     implementation "io.insert-koin:koin-android:3.2.0-beta-1"
