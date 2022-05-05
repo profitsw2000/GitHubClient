@@ -14,12 +14,12 @@ private const val ERROR_EMPTY_USER_DESCRIPTION = 1
 private const val ERROR_EMPTY_USER_REPO_LIST = 2
 
 class DetailsViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewModel, KoinComponent {
-    override val showProgress: Publisher<Boolean> by inject(named("showProgress"))
-    override val getUserRepoList: Publisher<List<UserRepoDTO>> by inject(named("getUserRepoList"))
-    override val getUserInfo: Publisher<UserDetailsDTO> by inject(named("getUserInfo"))
-    override val errorCode: Publisher<Int?> by inject(named("errorCode"))
+    override val showProgress: Publisher<Boolean> = Publisher()
+    override val getUserRepoList: Publisher<List<UserRepoDTO>> = Publisher()
+    override val getUserInfo: Publisher<UserDetailsDTO> = Publisher()
+    override val errorCode: Publisher<Int?> = Publisher()
 
-    private val compositeDisposable: CompositeDisposable by inject()
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onLoadUserInfo(login: String) {
         var inProgress1 = true

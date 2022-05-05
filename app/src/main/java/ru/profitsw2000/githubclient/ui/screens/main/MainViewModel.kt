@@ -17,13 +17,13 @@ private const val ERROR_EMPTY_USERS_LIST = 1
 private const val ERROR_USER_NOT_FOUND = 2
 
 class MainViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewModel, KoinComponent {
-    override val showProgress: Publisher<Boolean> by inject(named("showProgress"))
-    override val getUserProfileList: Publisher<List<UserProfile>> by inject(named("getUserProfileList"))
-    override val getUserList: Publisher<List<UserDTO>> by inject(named("getUserList"))
-    override val getUser: Publisher<UserDetailsDTO> by inject(named("getUser"))
-    override val errorCode: Publisher<Int?> by inject(named("errorCode"))
+    override val showProgress: Publisher<Boolean> = Publisher()
+    override val getUserProfileList: Publisher<List<UserProfile>> = Publisher()
+    override val getUserList: Publisher<List<UserDTO>> = Publisher()
+    override val getUser: Publisher<UserDetailsDTO> = Publisher()
+    override val errorCode: Publisher<Int?> = Publisher()
 
-    private val compositeDisposable: CompositeDisposable by inject()
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onLoadUserList() {
 /*        showProgress.post(true)

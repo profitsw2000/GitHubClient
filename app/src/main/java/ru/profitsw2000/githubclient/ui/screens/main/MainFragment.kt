@@ -30,15 +30,15 @@ class MainFragment : Fragment() {
 
     @Inject
     lateinit var repositoryUseCase: RepositoryUseCase
+    //private val userList = context?.app?.appComponent?.getUserList()
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private var viewModel: ViewModel? = null
-    //private val repositoryUseCase: RepositoryUseCase by inject()
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private var adapter: UserListAdapter? = null
     private val controller by lazy { activity as Controller }
-    private val userList: MutableList<UserDTO> by inject()
+    private val userList: MutableList<UserDTO> = mutableListOf()
     private var userPressedFlag: Boolean = false
     private var searchButtonPressedFlag: Boolean = false
 

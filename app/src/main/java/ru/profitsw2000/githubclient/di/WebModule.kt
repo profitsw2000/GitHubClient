@@ -9,6 +9,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.profitsw2000.githubclient.data.web.GitHubApi
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
+import ru.profitsw2000.githubclient.data.web.entities.UserDTO
 import ru.profitsw2000.githubclient.domain.RepositoryUseCase
 import javax.inject.Named
 import javax.inject.Singleton
@@ -46,5 +47,11 @@ class WebModule(val context: Context) {
     @Provides
     fun provideConverterFactory(): Converter.Factory {
         return GsonConverterFactory.create()
+    }
+
+    @Provides
+    @Named("userList")
+    fun getUserList(): MutableList<UserDTO> {
+        return mutableListOf()
     }
 }
