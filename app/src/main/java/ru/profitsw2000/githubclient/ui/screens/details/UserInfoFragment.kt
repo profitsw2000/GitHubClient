@@ -39,7 +39,7 @@ class UserInfoFragment : Fragment() {
 
         context?.app?.appComponent?.injectUserInfoFragment(this)
 
-        viewModel = DetailsViewModel(repositoryUseCase as WebRepositoryImpl)
+        viewModel = DetailsViewModel(repositoryUseCase as WebRepositoryImpl, requireContext())
 
         viewModelSubscribe()
 

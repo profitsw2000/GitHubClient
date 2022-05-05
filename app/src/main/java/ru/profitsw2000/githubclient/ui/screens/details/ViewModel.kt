@@ -9,7 +9,7 @@ interface ViewModel {
     val showProgress: Publisher<Boolean>
     val getUserRepoList: Publisher<List<UserRepoDTO>>
     val getUserInfo: Publisher<UserDetailsDTO>
-    val errorCode: Publisher<Int?>
+    val errorCode: Publisher<Int>
 
     @MainThread
     fun onLoadUserInfo(login: String)

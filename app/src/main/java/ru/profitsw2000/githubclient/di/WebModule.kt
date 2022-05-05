@@ -52,7 +52,6 @@ class WebModule(val context: Context) {
     }
 
     @Provides
-    @NonNull
     @Named("userList")
     fun getUserList(): MutableList<UserDTO> {
         return mutableListOf()

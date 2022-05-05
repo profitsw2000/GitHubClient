@@ -11,7 +11,7 @@ interface ViewModel {
     val getUserProfileList: Publisher<List<UserProfile>>
     val getUserList: Publisher<List<UserDTO>>
     val getUser: Publisher<UserDetailsDTO>
-    val errorCode: Publisher<Int?>
+    val errorCode: Publisher<Int>
 
     @MainThread
     fun onLoadUserList()

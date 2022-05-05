@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import ru.profitsw2000.githubclient.di.AppComponent
 import ru.profitsw2000.githubclient.di.DaggerAppComponent
+import ru.profitsw2000.githubclient.di.VMModule
 import ru.profitsw2000.githubclient.di.WebModule
 
 class App : Application() {
@@ -14,6 +15,7 @@ class App : Application() {
         //Dagger 2
         appComponent = DaggerAppComponent.builder()
             .webModule(WebModule(this))
+            .vMModule(VMModule(this))
             .build()
     }
 }

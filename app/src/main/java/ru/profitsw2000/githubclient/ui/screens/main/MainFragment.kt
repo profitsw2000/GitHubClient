@@ -197,7 +197,7 @@ class MainFragment : Fragment() {
     }
 
     private fun restoreViewModel(): MainViewModel {
-        return MainViewModel(repositoryUseCase as WebRepositoryImpl)
+        return MainViewModel(repositoryUseCase as WebRepositoryImpl, requireContext())
     }
 
     companion object {
