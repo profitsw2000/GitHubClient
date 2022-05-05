@@ -15,21 +15,26 @@ import androidx.recyclerview.widget.RecyclerView
 import org.koin.android.ext.android.inject
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
 import ru.profitsw2000.githubclient.R
+import ru.profitsw2000.githubclient.app
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
 import ru.profitsw2000.githubclient.data.web.entities.UserDTO
 import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
 import ru.profitsw2000.githubclient.domain.RepositoryUseCase
 import ru.profitsw2000.githubclient.ui.ViewModel
+import javax.inject.Inject
 
 private const val ERROR_EMPTY_USERS_LIST = 1
 private const val ERROR_USER_NOT_FOUND = 2
 
 class MainFragment : Fragment() {
 
+    @Inject
+    lateinit var repositoryUseCase: RepositoryUseCase
+
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private var viewModel: ViewModel? = null
-    private val repositoryUseCase: RepositoryUseCase by inject()
+    //private val repositoryUseCase: RepositoryUseCase by inject()
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private var adapter: UserListAdapter? = null
     private val controller by lazy { activity as Controller }
@@ -54,6 +59,7 @@ class MainFragment : Fragment() {
                 userPressedFlag = true
             }
         })
+        context?.app?.appComponent?.injectMainFragment(this)
 
         viewModel = restoreViewModel()
 
