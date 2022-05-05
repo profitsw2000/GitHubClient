@@ -9,10 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
-import org.koin.android.ext.android.inject
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
 import ru.profitsw2000.githubclient.R
 import ru.profitsw2000.githubclient.app
@@ -30,7 +28,7 @@ class MainFragment : Fragment() {
 
     @Inject
     lateinit var repositoryUseCase: RepositoryUseCase
-    //private val userList = context?.app?.appComponent?.getUserList()
+    lateinit var userList: MutableList<UserDTO>
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -38,7 +36,6 @@ class MainFragment : Fragment() {
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private var adapter: UserListAdapter? = null
     private val controller by lazy { activity as Controller }
-    private val userList: MutableList<UserDTO> = mutableListOf()
     private var userPressedFlag: Boolean = false
     private var searchButtonPressedFlag: Boolean = false
 
@@ -47,6 +44,7 @@ class MainFragment : Fragment() {
         if (activity !is Controller) {
             throw IllegalStateException("Activity должна наследоваться от Controller")
         }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,8 +57,8 @@ class MainFragment : Fragment() {
                 userPressedFlag = true
             }
         })
-        context?.app?.appComponent?.injectMainFragment(this)
-
+        requireContext().app.appComponent.injectMainFragment(this)
+        userList = requireActivity().app.appComponent.getUserList()
         viewModel = restoreViewModel()
 
         viewModelSubscribe()
@@ -147,7 +145,7 @@ class MainFragment : Fragment() {
         }
 
         binding.searchUserInputEditText.addTextChangedListener {
-            if (it.toString().isNullOrEmpty()
+            if (it.toString().isEmpty()
                 && !userPressedFlag
                 && searchButtonPressedFlag) {
                 searchButtonPressedFlag = false

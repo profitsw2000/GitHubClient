@@ -1,6 +1,8 @@
 package ru.profitsw2000.githubclient.di
 
 import android.content.Context
+import androidx.annotation.NonNull
+import androidx.annotation.Nullable
 import dagger.Module
 import dagger.Provides
 import retrofit2.Converter
@@ -50,6 +52,7 @@ class WebModule(val context: Context) {
     }
 
     @Provides
+    @NonNull
     @Named("userList")
     fun getUserList(): MutableList<UserDTO> {
         return mutableListOf()
