@@ -9,6 +9,8 @@ import ru.profitsw2000.githubclient.data.web.entities.UserDetailsDTO
 import ru.profitsw2000.githubclient.data.web.entities.UserRepoDTO
 import ru.profitsw2000.githubclient.domain.WebRepository
 
+class WebRepositoryImpl (private val api: GitHubApi) : WebRepository {
+=======
 class WebRepositoryImpl : WebRepository {
     //retrofit
     private val retrofit = Retrofit.Builder()

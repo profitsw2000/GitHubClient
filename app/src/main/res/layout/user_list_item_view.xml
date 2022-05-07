@@ -32,6 +32,7 @@
             android:id="@+id/login_text_view"
 =======
 =======
+=======
             android:id="@+id/person_name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/login_text_view"
 =======
+=======
             android:id="@+id/about_person_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,6 +60,7 @@
             android:layout_toRightOf="@+id/person_photo_image_view"
             tools:text="Organization" />
 
+=======
 =======
             tools:text="Junior Android and iOS developer for unknown corporation." />
 

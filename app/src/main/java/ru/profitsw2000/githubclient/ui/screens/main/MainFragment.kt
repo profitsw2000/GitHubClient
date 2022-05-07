@@ -2,7 +2,6 @@ package ru.profitsw2000.githubclient.ui.screens.main
 
 import android.app.AlertDialog
 import android.content.Context
-=======
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,6 +9,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
+import ru.profitsw2000.githubclient.utils.OnItemClickListener
+import ru.profitsw2000.githubclient.R
+import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
+import ru.profitsw2000.githubclient.data.web.entities.UserDTO
+import ru.profitsw2000.githubclient.databinding.FragmentMainBinding
+import ru.profitsw2000.githubclient.domain.RepositoryUseCase
+import ru.profitsw2000.githubclient.ui.ViewModel
+
+=======
 import androidx.recyclerview.widget.RecyclerView
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
 import ru.profitsw2000.githubclient.R
@@ -38,6 +50,12 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private var viewModel: ViewModel? = null
+    private val repositoryUseCase: RepositoryUseCase by inject()
+    private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
+    private var adapter: UserListAdapter? = null
+    private val controller by lazy { activity as Controller }
+    private val userList: MutableList<UserDTO> by inject()
+=======
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private var adapter: UserListAdapter? = null
     private val controller by lazy { activity as Controller }
@@ -49,7 +67,6 @@ class MainFragment : Fragment() {
             throw IllegalStateException("Activity должна наследоваться от Controller")
         }
     }
-=======
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +75,7 @@ class MainFragment : Fragment() {
         adapter = UserListAdapter(object : OnItemClickListener {
             override fun onItemClick(user: UserDTO) {
                 controller.openUserDetails(user.login)
+=======
 =======
             override fun onItemClick(user: User) {
                 val bundle = Bundle().apply {
@@ -79,8 +97,6 @@ class MainFragment : Fragment() {
     }
 
     private fun viewModelSubscribe() {
-=======
-=======
         viewModel?.showProgress?.subscribe(handler) {
             if (it == true) {
                 showProgress()
@@ -95,6 +111,7 @@ class MainFragment : Fragment() {
                     getString(R.string.dialog_empty_users_list_error_title),
                     getString(R.string.dialog_empty_users_list_error_text)
                 )
+=======
 =======
 =======
             when(it){
@@ -120,6 +137,7 @@ class MainFragment : Fragment() {
             }
         }
 =======
+=======
                 adapter?.setData(it)
             }
         }
@@ -133,6 +151,8 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+    ): View {
+=======
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
@@ -151,6 +171,11 @@ class MainFragment : Fragment() {
                 }
             }
         })
+
+        binding.searchUserInputLayout.setEndIconOnClickListener {
+            Toast.makeText(requireContext(),"Search ${binding.searchUserInputEditText.text}", Toast.LENGTH_SHORT).show()
+        }
+=======
 =======
     }
 
@@ -168,12 +193,14 @@ class MainFragment : Fragment() {
         viewModel?.onCleared()
 =======
 =======
+=======
         viewModel?.errorCode?.unsubscribeAll()
     }
 
     private fun showProgress() {
         with(binding) {
             progressBar.visibility = View.VISIBLE
+=======
 =======
 =======
         with(binding){
@@ -184,6 +211,7 @@ class MainFragment : Fragment() {
 
     private fun hideProgress() {
         with(binding) {
+=======
 =======
 =======
         with(binding){
@@ -200,6 +228,7 @@ class MainFragment : Fragment() {
                 .setPositiveButton(getString(R.string.dialog_button_ok_text)) { dialog, _ -> dialog.dismiss() }
 =======
 =======
+=======
                 .setPositiveButton(getString(R.string.dialog_button_ok_text)){
                         dialog, _ -> dialog.dismiss() }
                 .create()
@@ -208,6 +237,8 @@ class MainFragment : Fragment() {
     }
 
     private fun restoreViewModel(): MainViewModel {
+        return MainViewModel(repositoryUseCase as WebRepositoryImpl)
+=======
         return MainViewModel(context?.app!!.repositoryUseCase as WebRepositoryImpl)
 =======
         return MainViewModel(context?.app!!.clientApiUseCase)
@@ -233,5 +264,8 @@ class MainFragment : Fragment() {
     interface Controller {
         fun openUserDetails(login: String)
     }
+}
+
+=======
 =======
 }

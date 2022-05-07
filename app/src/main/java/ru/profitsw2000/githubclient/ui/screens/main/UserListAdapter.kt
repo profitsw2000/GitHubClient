@@ -16,6 +16,7 @@ class UserListAdapter(val onItemClickListener: OnItemClickListener): RecyclerVie
 
     fun setData (data: List<UserDTO>) {
 =======
+=======
 import ru.profitsw2000.githubclient.utils.OnItemClickListener
 import ru.profitsw2000.githubclient.domain.entities.UserProfile
 import ru.profitsw2000.githubclient.databinding.UserListItemViewBinding
@@ -62,6 +63,7 @@ class UserListAdapter(val onItemClickListener: OnItemClickListener): RecyclerVie
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(user: UserDTO) {
 =======
+=======
         fun bind(user: User) {
             with(binding){
                 personPhotoImageView.load(user.avatar_url)
@@ -69,6 +71,7 @@ class UserListAdapter(val onItemClickListener: OnItemClickListener): RecyclerVie
                 userTypeTextView.text = user.type
                 root.setOnClickListener {
                     onItemClickListener.onItemClick(user)
+=======
 =======
 =======
         fun bind(userProfile: UserProfile) {

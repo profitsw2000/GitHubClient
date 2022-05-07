@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(), MainFragment.Controller {
                 .commitAllowingStateLoss()
         }
 =======
+=======
 import ru.profitsw2000.githubclient.ui.screens.main.MainFragment
 
 class MainActivity : AppCompatActivity() {

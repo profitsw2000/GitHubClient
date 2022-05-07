@@ -44,6 +44,7 @@
                     <TextView
                         android:id="@+id/login_text_view"
 =======
+=======
 
                         android:id="@+id/person_name_text_view"
                         android:layout_width="wrap_content"
@@ -55,6 +56,7 @@
 
                     <TextView
                         android:id="@+id/person_name_text_view"
+=======
 =======
 =======
                         android:id="@+id/about_person_text_view"

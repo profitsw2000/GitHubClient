@@ -2,6 +2,14 @@ package ru.profitsw2000.githubclient.ui.screens.main
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.qualifier.named
+import org.koin.java.KoinJavaComponent.inject
+import ru.profitsw2000.githubclient.data.local.entities.UserProfile
+import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
+import ru.profitsw2000.githubclient.data.web.entities.UserDTO
+=======
 import ru.profitsw2000.githubclient.data.local.entities.UserProfile
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
 import ru.profitsw2000.githubclient.data.web.entities.UserDTO
@@ -17,6 +25,14 @@ import ru.profitsw2000.githubclient.utils.Publisher
 
 private const val ERROR_EMPTY_USERS_LIST = 1
 
+class MainViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewModel, KoinComponent {
+    override val showProgress: Publisher<Boolean> by inject(named("showProgress"))
+    override val getUserProfileList: Publisher<List<UserProfile>> by inject(named("getUserProfileList"))
+    override val getUserList: Publisher<List<UserDTO>> by inject(named("getUserList"))
+    override val errorCode: Publisher<Int?> by inject(named("errorCode"))
+
+    private val compositeDisposable: CompositeDisposable by inject()
+=======
 class MainViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewModel {
     override val showProgress: Publisher<Boolean> = Publisher()
     override val getUserProfileList: Publisher<List<UserProfile>> = Publisher()
@@ -39,6 +55,7 @@ class MainViewModel (private val clientApiUseCase: ClientApiUseCase) : ViewModel
             errorCode.post(ERROR_EMPTY_USERS_LIST)
         }
         showProgress.post(false)*/
+=======
 =======
 =======
     override val errorCode: Publisher<Int?> = Publisher()
@@ -74,6 +91,7 @@ class MainViewModel (private val clientApiUseCase: ClientApiUseCase) : ViewModel
         compositeDisposable.add(
             repositoryUseCase.getRxUserList(fromId)
 =======
+=======
             clientApiUseCase.getRxUserList()
                 .subscribeBy {
                     showProgress.post(false)
@@ -85,6 +103,7 @@ class MainViewModel (private val clientApiUseCase: ClientApiUseCase) : ViewModel
     override fun onCleared() {
         compositeDisposable.clear()
     }
+=======
 =======
 =======
 }

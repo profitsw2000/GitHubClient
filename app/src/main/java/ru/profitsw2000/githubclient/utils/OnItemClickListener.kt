@@ -5,6 +5,7 @@ import ru.profitsw2000.githubclient.data.web.entities.UserDTO
 interface OnItemClickListener {
     fun onItemClick(user: UserDTO)
 =======
+=======
 import ru.profitsw2000.githubclient.domain.entities.User
 
 interface OnItemClickListener {
