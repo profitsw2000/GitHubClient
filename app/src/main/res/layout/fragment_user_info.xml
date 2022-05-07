@@ -43,6 +43,10 @@
 
                     <TextView
                         android:id="@+id/login_text_view"
+=======
+=======
+
+                        android:id="@+id/person_name_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/user_list_item_name_text_size"
@@ -52,6 +56,10 @@
 
                     <TextView
                         android:id="@+id/person_name_text_view"
+=======
+=======
+=======
+                        android:id="@+id/about_person_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"

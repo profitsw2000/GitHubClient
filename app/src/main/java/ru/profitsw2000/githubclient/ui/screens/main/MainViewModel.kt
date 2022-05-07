@@ -9,6 +9,16 @@ import org.koin.java.KoinJavaComponent.inject
 import ru.profitsw2000.githubclient.data.local.entities.UserProfile
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
 import ru.profitsw2000.githubclient.data.web.entities.UserDTO
+=======
+import ru.profitsw2000.githubclient.data.local.entities.UserProfile
+import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
+import ru.profitsw2000.githubclient.data.web.entities.UserDTO
+=======
+import ru.profitsw2000.githubclient.domain.ClientApiUseCase
+import ru.profitsw2000.githubclient.domain.entities.User
+=======
+import ru.profitsw2000.githubclient.domain.ClientApiUseCase
+import ru.profitsw2000.githubclient.domain.entities.UserProfile
 import ru.profitsw2000.githubclient.ui.ViewModel
 import ru.profitsw2000.githubclient.utils.Publisher
 
@@ -22,6 +32,19 @@ class MainViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewMode
     override val errorCode: Publisher<Int?> by inject(named("errorCode"))
 
     private val compositeDisposable: CompositeDisposable by inject()
+=======
+class MainViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewModel {
+    override val showProgress: Publisher<Boolean> = Publisher()
+    override val getUserProfileList: Publisher<List<UserProfile>> = Publisher()
+    override val getUserList: Publisher<List<UserDTO>> = Publisher()
+=======
+class MainViewModel (private val clientApiUseCase: ClientApiUseCase) : ViewModel {
+    override val showProgress: Publisher<Boolean> = Publisher()
+    override val getUserProfileList: Publisher<List<UserProfile>> = Publisher()
+    override val getUserList: Publisher<List<User>> = Publisher()
+    override val errorCode: Publisher<Int?> = Publisher()
+
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onLoadUserList() {
 /*        showProgress.post(true)
@@ -32,6 +55,21 @@ class MainViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewMode
             errorCode.post(ERROR_EMPTY_USERS_LIST)
         }
         showProgress.post(false)*/
+=======
+=======
+=======
+    override val errorCode: Publisher<Int?> = Publisher()
+
+    override fun onLoadUserList() {
+        showProgress.post(true)
+        clientApiUseCase.getUserList { result ->
+            if (result != null) {
+                getUserProfileList.post(result)
+            } else {
+                errorCode.post(ERROR_EMPTY_USERS_LIST)
+            }
+            showProgress.post(false)
+        }
     }
 
     override fun onLoadRxUserList() {
@@ -52,6 +90,9 @@ class MainViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewMode
         showProgress.post(true)
         compositeDisposable.add(
             repositoryUseCase.getRxUserList(fromId)
+=======
+=======
+            clientApiUseCase.getRxUserList()
                 .subscribeBy {
                     showProgress.post(false)
                     getUserList.post(it)
@@ -62,4 +103,7 @@ class MainViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewMode
     override fun onCleared() {
         compositeDisposable.clear()
     }
+=======
+=======
+=======
 }

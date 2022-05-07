@@ -25,6 +25,10 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
+=======
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey_200">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_list_recyclerview"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -34,6 +38,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_user_input_layout"/>
+=======
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -46,6 +54,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+=======
+        app:layout_constraintTop_toTopOf="@+id/user_list_recyclerview"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

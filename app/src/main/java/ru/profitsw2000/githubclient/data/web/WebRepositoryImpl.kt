@@ -10,6 +10,15 @@ import ru.profitsw2000.githubclient.data.web.entities.UserRepoDTO
 import ru.profitsw2000.githubclient.domain.WebRepository
 
 class WebRepositoryImpl (private val api: GitHubApi) : WebRepository {
+=======
+class WebRepositoryImpl : WebRepository {
+    //retrofit
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("https://api.github.com/")
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    private val api: GitHubApi = retrofit.create(GitHubApi::class.java)
 
     override fun getRxUserList(): Single<List<UserDTO>> {
         return api.listUsers()
