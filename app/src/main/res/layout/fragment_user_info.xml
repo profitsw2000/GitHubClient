@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/fragments_padding"
+    android:background="@color/grey_200"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:strokeColor="@color/grey_600"
+        app:cardCornerRadius="@dimen/corner_radius_size_fragment_card_view"
+        app:strokeWidth="@dimen/small_stroke_width"
+        android:id="@+id/user_info_card_view">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/user_profile_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/user_profile_linear_layout_margin"
+            android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/person_photo_image_view"
+                    android:layout_width="@dimen/info_fragment_person_photo_size"
+                    android:layout_height="@dimen/info_fragment_person_photo_size"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="@dimen/person_photo_margin_right"
+                    android:src="@drawable/icon_user"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    app:strokeColor="@color/grey_600"
+                    app:strokeWidth="1dp" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/person_info_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/login_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/user_list_item_name_text_size"
+                        android:textColor="@color/black"
+                        tools:text="Name"
+                        />
+
+                    <TextView
+                        android:id="@+id/person_name_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:alpha="0.8"
+                        android:layout_marginTop="@dimen/margin_top_item_text_views"
+                        tools:text="Junior Android and iOS developer for unknown corporation." />
+
+                    <TextView
+                        android:id="@+id/person_city_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_top_item_text_views"
+                        android:textColor="@color/black"
+                        android:alpha="0.6"
+                        android:text="City: " />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:strokeColor="@color/grey_600"
+        android:layout_marginTop="@dimen/user_repository_list_card_view_margin_top"
+        app:cardCornerRadius="@dimen/corner_radius_size_fragment_card_view"
+        app:strokeWidth="@dimen/small_stroke_width"
+        android:id="@+id/user_repository_list_card_view">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/repositories_list_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
