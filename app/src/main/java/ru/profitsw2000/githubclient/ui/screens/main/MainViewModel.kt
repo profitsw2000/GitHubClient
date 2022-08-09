@@ -16,7 +16,7 @@ import ru.profitsw2000.githubclient.utils.Publisher
 private const val ERROR_EMPTY_USERS_LIST = 1
 
 class MainViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewModel, KoinComponent {
-    override val showProgress: Publisher<Boolean>  = Publisher() //by inject(named("showProgress"))
+    override val showProgress: Publisher<Boolean> = Publisher() //by inject(named("showProgress"))
     //override val getUserProfileList: Publisher<List<UserProfile>> by inject(named("getUserProfileList"))
     override val getUserList: Publisher<List<UserDTO>> = Publisher() //by inject(named("getUserList"))
     override val errorCode: Publisher<Int?>  = Publisher() //by inject(named("errorCode"))
