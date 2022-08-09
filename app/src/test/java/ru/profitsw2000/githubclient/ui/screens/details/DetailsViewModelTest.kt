@@ -18,6 +18,7 @@ import ru.profitsw2000.githubclient.ui.screens.main.MainViewModel
 
 internal class  DetailsViewModelTest {
 
+    private val login = "login"
     private lateinit var detailsViewModel: DetailsViewModel
     @Mock
     private lateinit var repository: WebRepositoryImpl
@@ -30,10 +31,10 @@ internal class  DetailsViewModelTest {
 
     @Test  //проверка вызова метода getRxUserInfo и getRxUserRepositories
     fun webRepository_getRxUserInfoAndRepositories_Test() {
-        Mockito.`when`(repository.getRxUserInfo("login")).thenReturn(Single.just(UserDetailsDTO("","","","")))
-        Mockito.`when`(repository.getRxUserRepositories("login")).thenReturn(Single.just(listOf(UserRepoDTO(0,""))))
-        detailsViewModel.onLoadUserInfo("login")
-        verify(repository, times(1)).getRxUserInfo("login")
-        verify(repository, times(1)).getRxUserRepositories("login")
+        Mockito.`when`(repository.getRxUserInfo(login)).thenReturn(Single.just(UserDetailsDTO("","","","")))
+        Mockito.`when`(repository.getRxUserRepositories(login)).thenReturn(Single.just(listOf(UserRepoDTO(0,""))))
+        detailsViewModel.onLoadUserInfo(login)
+        verify(repository, times(1)).getRxUserInfo(login)
+        verify(repository, times(1)).getRxUserRepositories(login)
     }
 }
