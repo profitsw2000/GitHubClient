@@ -13,10 +13,11 @@ import ru.profitsw2000.githubclient.data.web.entities.UserDTO
 import ru.profitsw2000.githubclient.data.web.entities.UserDetailsDTO
 import ru.profitsw2000.githubclient.data.web.entities.UserRepoDTO
 
+private const val id = 5
+private const val login = "login"
+
 internal class WebRepositoryImplTest {
 
-    private val id = 5
-    private val login = "login"
     private lateinit var repository: WebRepositoryImpl
 
     @Mock
@@ -53,6 +54,6 @@ internal class WebRepositoryImplTest {
     fun getRxUserRepositories_Test() {
         Mockito.`when`(gitHubApi.listRepos(login)).thenReturn(Single.just(listOf(UserRepoDTO(id, ""))))
         repository.getRxUserRepositories(login)
-        verify(gitHubApi, times(1)).listRepos(login)
+        verify(gitHubApi).listRepos(login)
     }
 }
