@@ -1,6 +1,5 @@
 package ru.profitsw2000.githubclient.data.web
 
-import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import io.reactivex.rxjava3.core.Single

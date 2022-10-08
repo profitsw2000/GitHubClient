@@ -14,5 +14,7 @@ interface ViewModel {
     @MainThread
     fun onLoadUserInfo(login: String)
 
+    fun onLoadMockUserInfo(login: String)
+
     fun onCleared()
 }

@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
+import ru.profitsw2000.githubclient.data.local.MockRepositoryImpl
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
 import ru.profitsw2000.githubclient.data.web.entities.UserDetailsDTO
 import ru.profitsw2000.githubclient.data.web.entities.UserRepoDTO
@@ -13,7 +14,9 @@ import ru.profitsw2000.githubclient.utils.Publisher
 private const val ERROR_EMPTY_USER_DESCRIPTION = 1
 private const val ERROR_EMPTY_USER_REPO_LIST = 2
 
-class DetailsViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewModel {
+class DetailsViewModel(private val repositoryUseCase: WebRepositoryImpl,
+                       private val mockRepository: MockRepositoryImpl
+                        ) : ViewModel {
     override val showProgress: Publisher<Boolean> = Publisher() //by inject(named("showProgress"))
     override val getUserRepoList: Publisher<List<UserRepoDTO>> = Publisher() // by inject(named("getUserRepoList"))
     override val getUserInfo: Publisher<UserDetailsDTO> = Publisher() // by inject(named("getUserInfo"))
@@ -51,6 +54,12 @@ class DetailsViewModel(private val repositoryUseCase: WebRepositoryImpl) : ViewM
         compositeDisposable.addAll(disposable1)
         compositeDisposable.addAll(disposable2)
     }
+
+    override fun onLoadMockUserInfo(login: String) {
+        getUserInfo.post(mockRepository.getMockUserInfo(login))
+        getUserRepoList.post(mockRepository.getMockUserRepositories(login))
+    }
+
 
     override fun onCleared() {
         compositeDisposable.clear()

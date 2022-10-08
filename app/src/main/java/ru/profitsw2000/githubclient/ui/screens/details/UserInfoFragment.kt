@@ -10,7 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import coil.api.load
 import org.koin.android.ext.android.inject
+import org.koin.core.qualifier.named
 import ru.profitsw2000.githubclient.R
+import ru.profitsw2000.githubclient.data.local.MockRepositoryImpl
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
 import ru.profitsw2000.githubclient.databinding.FragmentUserInfoBinding
 import ru.profitsw2000.githubclient.domain.RepositoryUseCase
@@ -23,21 +25,24 @@ class UserInfoFragment : Fragment() {
 
     private var _binding: FragmentUserInfoBinding? = null
     private val binding get() = _binding!!
-    private val repositoryUseCase: RepositoryUseCase by inject()
+    private val repositoryUseCase: RepositoryUseCase by inject(named("web_repository"))
+    private val mockRepository: RepositoryUseCase by inject(named("mock_repository"))
     private var adapter: UserRepositoriesAdapter? = null
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
-    private var viewModel: ru.profitsw2000.githubclient.ui.screens.details.ViewModel? = null
+    private var viewModel: ViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val userLogin = arguments?.getString(BUNDLE_EXTRA)
         adapter = UserRepositoriesAdapter()
 
-        viewModel = DetailsViewModel(repositoryUseCase as WebRepositoryImpl)
+        viewModel = DetailsViewModel(repositoryUseCase as WebRepositoryImpl,
+                                    mockRepository as MockRepositoryImpl)
 
         viewModelSubscribe()
 
-        viewModel?.onLoadUserInfo(userLogin!!)
+        //viewModel?.onLoadUserInfo(userLogin!!)
+        viewModel?.onLoadMockUserInfo(userLogin!!)
     }
 
     private fun viewModelSubscribe() {
@@ -67,9 +72,9 @@ class UserInfoFragment : Fragment() {
             if (it != null) {
                 with(binding) {
                     personPhotoImageView.load(it.avatar_url)
-                    loginTextView.setText(it.login)
-                    personNameTextView.setText(it.name)
-                    personCityTextView.setText(it.location)
+                    loginTextView.text = it.login
+                    personNameTextView.text = it.name
+                    personCityTextView.text = it.location
                 }
             }
         }
@@ -84,7 +89,7 @@ class UserInfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentUserInfoBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -9,24 +9,24 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import ru.profitsw2000.githubclient.data.local.MockRepositoryImpl
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
-import ru.profitsw2000.githubclient.data.web.entities.UserDTO
 import ru.profitsw2000.githubclient.data.web.entities.UserDetailsDTO
 import ru.profitsw2000.githubclient.data.web.entities.UserRepoDTO
-import ru.profitsw2000.githubclient.ui.screens.main.MainViewModel
 
 
-internal class  DetailsViewModelTest {
+internal class DetailsViewModelTest {
 
     private val login = "login"
     private lateinit var detailsViewModel: DetailsViewModel
     @Mock
     private lateinit var repository: WebRepositoryImpl
+    private lateinit var mockRepository: MockRepositoryImpl
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        detailsViewModel = DetailsViewModel(repository)
+        detailsViewModel = DetailsViewModel(repository, mockRepository)
     }
 
     @Test  //проверка вызова метода getRxUserInfo и getRxUserRepositories

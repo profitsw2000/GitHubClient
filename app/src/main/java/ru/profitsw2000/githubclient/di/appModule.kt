@@ -8,6 +8,7 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.profitsw2000.githubclient.data.local.MockRepositoryImpl
 import ru.profitsw2000.githubclient.data.local.entities.UserProfile
 import ru.profitsw2000.githubclient.data.web.GitHubApi
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
@@ -22,7 +23,8 @@ val appModule = module {
 
     single<String>(named("api_url")) { "https://api.github.com/" }
     single<GitHubApi> { get<Retrofit>().create(GitHubApi::class.java) }
-    single<RepositoryUseCase> { WebRepositoryImpl(get()) }
+    single<RepositoryUseCase>(named("web_repository")) { WebRepositoryImpl(get()) }
+    single<RepositoryUseCase>(named("mock_repository")) { MockRepositoryImpl() }
     single { Retrofit.Builder()
         .baseUrl(get<String>(named("api_url")))
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
