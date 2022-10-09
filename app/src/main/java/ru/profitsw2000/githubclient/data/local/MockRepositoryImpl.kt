@@ -80,30 +80,58 @@ class MockRepositoryImpl : MockRepository{
     }
 
     override fun getMockUserInfo(login: String): UserDetailsDTO {
-        var userInfo = UserDetailsDTO(
-            users[0].userName,
-            users[0].avatarUrl,
-            users[0].userName,
-            users[0].userCity
-        )
 
-        for (user in users) {
-            userInfo = if (user.userInfo == login) {
-                UserDetailsDTO(
-                    user.userName,
-                    user.avatarUrl,
-                    user.userName,
-                    user.userCity
-                )
-            }
-            else UserDetailsDTO(
+        return when (login) {
+            "Piccolo" -> UserDetailsDTO(
+                users[0].userName,
+                users[0].avatarUrl,
+                users[0].userName,
+                users[0].userCity
+            )
+            "MorCam" -> UserDetailsDTO(
+                users[1].userName,
+                users[1].avatarUrl,
+                users[1].userName,
+                users[1].userCity
+            )
+            "AscorImpact" -> UserDetailsDTO(
+                users[2].userName,
+                users[2].avatarUrl,
+                users[2].userName,
+                users[2].userCity
+            )
+            "FanReid" -> UserDetailsDTO(
+                users[3].userName,
+                users[3].avatarUrl,
+                users[3].userName,
+                users[3].userCity
+            )
+            else -> UserDetailsDTO(
                 users[0].userName,
                 users[0].avatarUrl,
                 users[0].userName,
                 users[0].userCity
             )
         }
-        return userInfo
+
+/*        val user = getUserList().find { it.userInfo == login }
+
+        return if (user != null) {
+            UserDetailsDTO(
+                users[8].userName,
+                users[8].avatarUrl,
+                users[8].userName,
+                users[8].userCity
+            )
+        } else {
+            UserDetailsDTO(
+                users[0].userName,
+                users[0].avatarUrl,
+                users[0].userName,
+                users[0].userCity
+            )
+        }*/
+
     }
 
     override fun getMockUserRepositories(login: String): List<UserRepoDTO> {
