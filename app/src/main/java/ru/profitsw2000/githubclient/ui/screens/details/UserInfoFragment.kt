@@ -14,6 +14,7 @@ import org.koin.core.qualifier.named
 import ru.profitsw2000.githubclient.R
 import ru.profitsw2000.githubclient.data.local.MockRepositoryImpl
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
+import ru.profitsw2000.githubclient.data.web.entities.UserDetailsDTO
 import ru.profitsw2000.githubclient.databinding.FragmentUserInfoBinding
 import ru.profitsw2000.githubclient.domain.RepositoryUseCase
 
@@ -70,12 +71,7 @@ class UserInfoFragment : Fragment() {
 
         viewModel?.getUserInfo?.subscribe(handler) {
             if (it != null) {
-                with(binding) {
-                    personPhotoImageView.load(it.avatar_url)
-                    loginTextView.text = it.login
-                    personNameTextView.text = it.name
-                    personCityTextView.text = it.location
-                }
+                setUserInfo(it)
             }
         }
 
@@ -83,6 +79,15 @@ class UserInfoFragment : Fragment() {
             if (it != null) {
                 adapter?.setData(it)
             }
+        }
+    }
+
+    fun setUserInfo(userDetails: UserDetailsDTO) {
+        with(binding) {
+            personPhotoImageView.load(userDetails.avatar_url)
+            loginTextView.text = userDetails.login
+            personNameTextView.text = userDetails.name
+            personCityTextView.text = userDetails.location
         }
     }
 
