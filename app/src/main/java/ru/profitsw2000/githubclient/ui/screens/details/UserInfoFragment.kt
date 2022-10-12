@@ -8,15 +8,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import coil.api.load
 import org.koin.android.ext.android.inject
 import org.koin.core.qualifier.named
 import ru.profitsw2000.githubclient.R
 import ru.profitsw2000.githubclient.data.local.MockRepositoryImpl
 import ru.profitsw2000.githubclient.data.web.WebRepositoryImpl
+import ru.profitsw2000.githubclient.data.web.entities.UserDTO
 import ru.profitsw2000.githubclient.data.web.entities.UserDetailsDTO
 import ru.profitsw2000.githubclient.databinding.FragmentUserInfoBinding
 import ru.profitsw2000.githubclient.domain.RepositoryUseCase
+import ru.profitsw2000.githubclient.utils.OnItemClickListener
+import ru.profitsw2000.githubclient.utils.onUserReposItemClickListener
 
 private const val BUNDLE_EXTRA = "user profile"
 private const val ERROR_EMPTY_USER_DESCRIPTION = 1
@@ -35,7 +39,11 @@ class UserInfoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val userLogin = arguments?.getString(BUNDLE_EXTRA)
-        adapter = UserRepositoriesAdapter()
+        adapter = UserRepositoriesAdapter(object : onUserReposItemClickListener {
+            override fun onItemClick(repositoryName: String) {
+                Toast.makeText(requireContext(), repositoryName, Toast.LENGTH_SHORT).show()
+            }
+        })
 
         viewModel = DetailsViewModel(repositoryUseCase as WebRepositoryImpl,
                                     mockRepository as MockRepositoryImpl)

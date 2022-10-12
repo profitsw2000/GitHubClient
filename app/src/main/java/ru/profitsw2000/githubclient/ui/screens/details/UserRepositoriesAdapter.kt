@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.profitsw2000.githubclient.data.web.entities.UserRepoDTO
 import ru.profitsw2000.githubclient.databinding.UserRepositoryListItemViewBinding
+import ru.profitsw2000.githubclient.utils.OnItemClickListener
+import ru.profitsw2000.githubclient.utils.onUserReposItemClickListener
 
-class UserRepositoriesAdapter : RecyclerView.Adapter<UserRepositoriesAdapter.ViewHolder>(){
+class UserRepositoriesAdapter(val onUserReposItemClickListener: onUserReposItemClickListener)
+    : RecyclerView.Adapter<UserRepositoriesAdapter.ViewHolder>(){
 
     private lateinit var binding: UserRepositoryListItemViewBinding
     private var data: List<UserRepoDTO> = arrayListOf()
@@ -41,6 +44,9 @@ class UserRepositoriesAdapter : RecyclerView.Adapter<UserRepositoriesAdapter.Vie
         fun bind(userRepo: UserRepoDTO) {
             with(binding){
                 userRepositoryNameTextView.text = userRepo.name
+                root.setOnClickListener {
+                    onUserReposItemClickListener.onItemClick(userRepo.name)
+                }
             }
         }
     }

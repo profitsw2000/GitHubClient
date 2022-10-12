@@ -113,37 +113,15 @@ class MockRepositoryImpl : MockRepository{
                 users[0].userCity
             )
         }
-
-/*        val user = getUserList().find { it.userInfo == login }
-
-        return if (user != null) {
-            UserDetailsDTO(
-                users[8].userName,
-                users[8].avatarUrl,
-                users[8].userName,
-                users[8].userCity
-            )
-        } else {
-            UserDetailsDTO(
-                users[0].userName,
-                users[0].avatarUrl,
-                users[0].userName,
-                users[0].userCity
-            )
-        }*/
-
     }
 
     override fun getMockUserRepositories(login: String): List<UserRepoDTO> {
-        return mutableListOf(
-            UserRepoDTO(
-                users[0].id,
-                users[0].userRepositories[0]
-            ),
-            UserRepoDTO(
-                users[0].id,
-                users[0].userRepositories[1]
-            )
-        )
+
+        val repoList: MutableList<UserRepoDTO> = mutableListOf()
+
+        for (i in 1..50) {
+            repoList.add(UserRepoDTO(i,"Repo$i"))
+        }
+        return repoList
     }
 }
